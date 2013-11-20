@@ -1,0 +1,38 @@
+{
+  "name": "GitHub Gmail",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "Do not hide my links",
+  "homepage_url": "http://muan.co",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "default_locale": "en",
+  "background": {
+    "page": "src/bg/background.html",
+    "persistent": true
+  },
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://mail.google.com/*"
+      ],
+      "css": [
+        "src/inject/inject.css"
+      ]
+    },
+    {
+      "matches": [
+        "https://mail.google.com/*"
+      ],
+      "js": [
+        "js/jquery.js",
+        "js/cookie.js",
+        "src/inject/inject.js"
+      ]
+    }
+  ]
+}
