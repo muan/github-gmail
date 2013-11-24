@@ -21,12 +21,7 @@ var readyStateCheckInterval = setInterval(function() {
   }
 }, 100)
 
-function fakeClick() {
-  var click = document.createEvent("MouseEvents")
-  click.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
-  return click
-}
-
+// bind shift + G to thread (mail view)
 $(document).on("keypress", function(event) {  
   if(event.shiftKey && event.keyCode == 71 && window.idled && $(".github-link:visible")[0] ) { 
     window.idled = false
@@ -34,3 +29,33 @@ $(document).on("keypress", function(event) {
     setTimeout( function(){ window.clicked = true }, 1000)
   }
 })
+
+// bind ctrl + return to selected thread (everywhere)
+$(document).on("keypress", function(event) {  
+  if(event.ctrlKey && event.keyCode == 13 && (selected = document.querySelectorAll('.PE ~ [tabindex="0"] .y6')[0]) ) { 
+    if( (title = selected.innerText.match(/\[(.*)\]\s.*\s\(\#(\d*)\)/)) ) {
+
+      // org name coms from a label
+      org = document.querySelectorAll('.PE ~ [tabindex="0"] .av')[0].innerText.toLowerCase()
+
+      repo = title[1]
+      issue_no = title[2]
+  
+      url = "https://github.com/" + org + "/" + repo + "/issues/" + issue_no
+      linkWithUrl(url).dispatchEvent(fakeClick())
+    }
+  }
+})
+
+function fakeClick() {
+  var click = document.createEvent("MouseEvents")
+  click.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+  return click
+}
+
+function linkWithUrl(url) {
+  var l = document.createElement('a')
+  l.href = url
+  l.target = "_blank"
+  return l
+}
