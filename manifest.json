@@ -1,9 +1,9 @@
 {
-  "name": "GitHub Gmail",
+  "name": "GitHub Notification Helper for Gmail",
   "version": "0.0.3",
   "manifest_version": 2,
-  "description": "Do not hide my links",
-  "homepage_url": "http://muan.co",
+  "description": "Add links to GitHub threads and shortcuts to your Gmail interface.",
+  "homepage_url": "http://github-gmail.muan.co",
   "icons": {
     "16": "images/icon16.png",
     "48": "images/icon48.png",
