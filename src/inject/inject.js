@@ -24,6 +24,7 @@ var readyStateCheckInterval = setInterval(function() {
 // bind shift + G to thread (mail view)
 $(document).on("keypress", function(event) {  
   if(event.shiftKey && event.keyCode == 71 && window.idled && $(".github-link:visible")[0] ) { 
+    if (!!event.target.className.match(/editable/)) return 
     window.idled = false
     $(".github-link:visible")[0].dispatchEvent(fakeClick())
     setTimeout( function(){ window.clicked = true }, 1000)
