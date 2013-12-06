@@ -12,6 +12,12 @@ Open a selected GitHub notification email thread using `ctrl + return` in list v
 
 #### Installation
 
+##### The easy way
+
+[Install the extension via Chrome webstore](https://chrome.google.com/webstore/detail/github-notification-helpe/gmhijkhbpihfmkmhmcfebmlkaekgmaje)
+
+##### The muan-might-steal-all-my-data-so-I-want-to-manually-load-it way
+
 1. Go to [Releases](https://github.com/muan/github-gmail/releases) and download the latest version.
 2. Unzip the folder wherever you'd like.
 3. Go to Chrome extensions page (`chrome://extensions/`) and load the folder as an **Unpacked extension**.
