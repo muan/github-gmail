@@ -1,4 +1,4 @@
-### GitHub + GMail
+## GitHub + GMail
 
 Open your GitHub notifications using `shift + g`, or this button in mail view:
 
@@ -10,13 +10,13 @@ Open a selected GitHub notification email thread using `ctrl + return` in list v
 
 ![image](https://f.cloud.github.com/assets/1153134/1608782/cf8e3000-5514-11e3-9d48-0d7307065c2e.png)
 
-#### Installation
+### Installation
 
-##### The easy way
+#### The easy way
 
 [Install the extension via Chrome webstore](https://chrome.google.com/webstore/detail/github-notification-helpe/gmhijkhbpihfmkmhmcfebmlkaekgmaje)
 
-##### The muan-might-steal-all-my-data-so-I-want-to-manually-load-it way
+#### The muan-might-steal-all-my-data-so-I-want-to-manually-load-it way
 
 1. Go to [Releases](https://github.com/muan/github-gmail/releases) and download the latest version.
 2. Unzip the folder wherever you'd like.
