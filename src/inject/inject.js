@@ -1,39 +1,37 @@
-var readyStateCheckInterval = setInterval(function() {
+// Find GitHub link and append it to tool bar on hashchange
+$(window).on('hashchange', function() {
+  github_links = document.querySelectorAll('[href^="https://github.com/"]')
 
-  if( $(".nH").length ) {
-    clearInterval(readyStateCheckInterval)
+  if( github_links.length ) {
+    url = github_links[github_links.length-1].href
 
-    $(window).on('hashchange', function() {
-      github_links = document.querySelectorAll('[href^="https://github.com/"]')
+    // Go to thread instead of .diff link (pull request notifications)
+    url = url.match(/\.diff/) ? url.slice(0, url.length-5) : url
 
-      if(github_links.length) {
-        url = github_links[github_links.length-1].href
-        url = url.match(/\.diff/) ? url.slice(0, url.length-5) : url
+    link = $("<a class='github-link T-I J-J5-Ji lS T-I-ax7 ar7' target='_blank' href='"+ url +"'>Visit Thread on GitHub</a>")
+    $(".iH > div").append(link)
 
-        link = $("<a class='github-link T-I J-J5-Ji lS T-I-ax7 ar7' target='_blank' href='"+ url +"'>Visit Thread on GitHub</a>")
-        
-        window.idled = true
-        $(".iH > div").append(link)
-      }
-
-    })
-
+    window.idled = true
   }
-}, 100)
+})
 
-// bind shift + G to thread (mail view)
+// Shortcut: bind shift + G to trigger the GitHub link
 $(document).on("keypress", function(event) {  
-  if(event.shiftKey && event.keyCode == 71 && window.idled && $(".github-link:visible")[0] ) { 
-    if (!!event.target.className.match(/editable/)) return 
+  if( event.shiftKey && event.keyCode == 71 && window.idled && $(".github-link:visible")[0] ) { 
+    // abort event if in an editable area
+    if ( !!event.target.className.match(/editable/) ) return 
+
+    // avoid link being appended multiple times    
     window.idled = false
+
     $(".github-link:visible")[0].dispatchEvent(fakeClick())
     setTimeout( function(){ window.clicked = true }, 1000)
   }
 })
 
-// bind ctrl + return to selected thread (everywhere)
+// Shortcut: bind ctrl + return to selected thread (everywhere)
 $(document).on("keypress", function(event) {  
-  if(event.ctrlKey && event.keyCode == 13 && (selected = document.querySelectorAll('.PE ~ [tabindex="0"] .y6')[0]) ) { 
+  if( event.ctrlKey && event.keyCode == 13 && (selected = document.querySelectorAll('.PE ~ [tabindex="0"] .y6')[0]) ) { 
     if( (title = selected.innerText.match(/\[(.*)\]\s.*\s\(\#(\d*)\)/)) ) {
 
       // org name coms from a label
@@ -48,6 +46,11 @@ $(document).on("keypress", function(event) {
   }
 })
 
+// 
+// Helpers
+// 
+
+// .click() doesn't usually work as expected
 function fakeClick() {
   var click = document.createEvent("MouseEvents")
   click.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
