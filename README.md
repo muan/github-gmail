@@ -1,4 +1,4 @@
-## GitHub + GMail
+## GitHub + Gmail
 
 Open your GitHub notifications using `shift + g`, or this button in mail view:
 
