@@ -17,7 +17,7 @@ $(window).on('hashchange', function() {
 
 $(document).on("keypress", function(event) {  
   // Shortcut: bind shift + G, if a button exist and event not in a textarea
-  if( event.shiftKey && event.keyCode == 71 && window.idled && $(".github-link:visible")[0] && !event.target.className.match(/editable/)) { 
+  if( event.shiftKey && event.keyCode == 71 && window.idled && $(".github-link:visible")[0] && notAnInput(event.target)) { 
     triggerGitHubLink()
   }
 
@@ -83,4 +83,8 @@ function getVisible (nodeList) {
     })
     return node 
   }
+}
+
+function notAnInput (element) {
+  return !element.className.match(/editable/) && element.tagName != "TEXTAREA" && element.tagName != "INPUT"
 }
