@@ -2,7 +2,7 @@
 
 Open your GitHub notifications using `shift + g`, or this button in mail view:
 
-![image](https://f.cloud.github.com/assets/1153134/1699447/ba674c36-5f9e-11e3-8831-27d635bea9f4.png)
+![image](https://f.cloud.github.com/assets/1153134/1699454/20634378-5f9f-11e3-999c-c0c5e3e96684.png)
 
 **or** 
 
