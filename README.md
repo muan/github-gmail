@@ -22,4 +22,6 @@ Open a selected GitHub notification email thread using `ctrl + return` in list v
 2. Unzip the folder wherever you'd like.
 3. Go to Chrome extensions page (`chrome://extensions/`) and load the folder as an **Unpacked extension**.
 
-![](https://f.cloud.github.com/assets/1153134/1597414/e58cad60-5310-11e3-9158-adb6b0a2c1e7.png)
+### Code
+
+Just in case if you're not familiar with how Chrome extension is built, you can find all the relevent code in `src/inject/inject.js`.
