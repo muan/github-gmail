@@ -1,9 +1,42 @@
 // Find GitHub link and append it to tool bar on hashchange
 $(window).on('hashchange', function() {
-  github_links = document.querySelectorAll('[href^="https://github.com/"]')
+  // Lookup Enterprise Domains stored in cookie
+  var enterprise_domains = jQuery.cookie('github-gmail-enterprise');
+  if(typeof enterprise_domains == 'undefined'){
+    enterprise_domains = [];
+  }
+  else{
+    enterprise_domains = enterprise_domains.split(',');
+  }
+
+  // Search for github.com and GitHub Enterprise links
+  // Write new Enterprise links to cookie.
+  var github_links = [];
+  links = document.querySelectorAll('a');
+  for (var i = 0; i < links.length; ++i) {
+    var item = links[i];  // Calling myNodeList.item(i) isn't necessary in JavaScript
+    if(item.text.match('View it on GitHub Enterprise')){
+      github_links.push(item.href);
+      base_url = item.href.split('/',3).join("/");
+      if(enterprise_domains.indexOf(base_url) == -1){
+        enterprise_domains.push(base_url);
+        jQuery.cookie('github-gmail-enterprise', enterprise_domains.join(','));
+      }
+    }
+    else if(item.href.match("https://github.com/")){
+      github_links.push(item.href);
+    }
+    else if(enterprise_domains.length){
+      for (var j = 0; j < enterprise_domains.length; ++j) {
+        if(item.href.match(enterprise_domains[j])){
+          github_links.push(item.href);
+        }
+      }
+    }
+  }
 
   if( github_links.length ) {
-    url = github_links[github_links.length-1].href
+    url = github_links[github_links.length-1]
 
     // Go to thread instead of .diff link (pull request notifications)
     url = url.match(/\.diff/) ? url.slice(0, url.length-5) : url
