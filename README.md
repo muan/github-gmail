@@ -29,4 +29,4 @@ Open a selected GitHub notification email thread using `ctrl + return(enter)` in
 
 ### Code
 
-Just in case if you're not familiar with how Chrome extension is built, you can find all the relevent code in `src/inject/inject.js`.
+Just in case if you're not familiar with how Chrome extension is built, you can find all the relevant code in `src/inject/inject.js`.
