@@ -14,6 +14,7 @@
     "page": "src/bg/background.html",
     "persistent": true
   },
+  "options_page": "src/options/index.html",
   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "content_scripts": [
     {
