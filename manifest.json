@@ -4,7 +4,7 @@
   "version": "0.1.1",
   "manifest_version": 2,
   "description": "Add links to GitHub threads and shortcuts to your Gmail interface.",
-  "homepage_url": "http://github-gmail.muan.co",
+  "homepage_url": "http://github.com/muan/github-gmail",
   "icons": {
     "16": "images/icon16.png",
     "48": "images/icon48.png",
