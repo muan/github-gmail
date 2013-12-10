@@ -10,6 +10,7 @@ function initOnHashChangeAction(domains) {
     allDomains = "github.com,"
     if(domains) allDomains += domains
 
+    // Take string -> make array -> make queries -> avoid nil -> join queries to string
     selectors = allDomains.replace(/\s/, '').split(',').map(function (name) { 
       if (name.length) return ("[href*='" + name + "']") 
     }).filter(function(name) { return name }).join(", ")
