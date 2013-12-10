@@ -12,7 +12,7 @@ function initOnHashChangeAction(domains) {
   $(window).on('hashchange', function() {
     github_links = document.querySelectorAll('[href^="https://github.com/"]')
 
-    if(domains.length && !github_links.length) {
+    if(domains && !github_links.length) {
       domains.map(function(name) {
         if(!github_links.length) {
           github_links = document.querySelectorAll('[href*="' + name + '"]')
