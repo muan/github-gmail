@@ -15,7 +15,12 @@ function initOptions (defaultOptions) {
   optionsWrapper = document.getElementById('options')
 
   for (var key in options) {
-    $(optionsWrapper).append('<label>' + key + '</label>')
+    title = key
+    if (key == 'Domains') {
+      title += " (comma separated if multiple)"
+    }
+
+    $(optionsWrapper).append('<label>' + title + '</label>')
     $(optionsWrapper).append('<input name=\'' + key + '\' value=\'' + options[key] +'\' type=\'text\'>')
   }
 
