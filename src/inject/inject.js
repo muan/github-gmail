@@ -4,22 +4,17 @@ chrome.extension.sendMessage({}, function(settings) {
 })
 
 function initOnHashChangeAction(domains) {
-  if(domains) {
-    domains = domains.replace(/\s/g, '').split(",")
-  }
 
   // Find GitHub link and append it to tool bar on hashchange
   $(window).on('hashchange', function() {
-    github_links = document.querySelectorAll('[href^="https://github.com/"]')
+    allDomains = "github.com,"
+    if(domains) allDomains += domains
 
-    if(domains && !github_links.length) {
-      domains.map(function(name) {
-        if(!github_links.length) {
-          github_links = document.querySelectorAll('[href*="' + name + '"]')
-          console.log(github_links)
-        }
-      })
-    }
+    selectors = allDomains.replace(/\s/, '').split(',').map(function (name) { 
+      if (name.length) return ("[href*='" + name + "']") 
+    }).filter(function(name) { return name }).join(", ")
+
+    github_links = document.querySelectorAll(selectors)
 
     if( github_links.length ) {
       url = github_links[github_links.length-1].href
