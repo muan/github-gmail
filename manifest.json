@@ -32,7 +32,6 @@
       ],
       "js": [
         "js/jquery.js",
-        "js/cookie.js",
         "src/inject/inject.js"
       ]
     }
