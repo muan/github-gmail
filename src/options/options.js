@@ -2,7 +2,7 @@ defaultOptions = {
   'Domains': ''
 }
 
-$(document).ready(function {
+$(document).ready(function (){
   initOptions(defaultOptions)
 })
 
