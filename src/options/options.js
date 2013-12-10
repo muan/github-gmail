@@ -1,7 +1,7 @@
 defaultOptions = {
-  'Button': '',
-  'List view trigger': '',
-  'Label RegExp': '',
+  // 'Button': '',
+  // 'List view trigger': '',
+  // 'Label RegExp': '',
   'Domains': ''
 }
 
