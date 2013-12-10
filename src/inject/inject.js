@@ -1,19 +1,40 @@
-// Find GitHub link and append it to tool bar on hashchange
-$(window).on('hashchange', function() {
-  github_links = document.querySelectorAll('[href^="https://github.com/"]')
-
-  if( github_links.length ) {
-    url = github_links[github_links.length-1].href
-
-    // Go to thread instead of .diff link (pull request notifications)
-    url = url.match(/\.diff/) ? url.slice(0, url.length-5) : url
-
-    link = $("<a class='github-link T-I J-J5-Ji lS T-I-ax7 ar7' target='_blank' href='"+ url +"'>Visit Thread on GitHub</a>")
-    $(".iH > div").append(link)
-
-    window.idled = true
-  }
+// Retriving user options
+chrome.extension.sendMessage({}, function(settings) {
+  initOnHashChangeAction(settings['Domains']);
 })
+
+function initOnHashChangeAction(domains) {
+  if(domains) {
+    domains = domains.replace(/\s/g, '').split(",")
+  }
+
+  // Find GitHub link and append it to tool bar on hashchange
+  $(window).on('hashchange', function() {
+    github_links = document.querySelectorAll('[href^="https://github.com/"]')
+
+    if(domains.length && !github_links.length) {
+      domains.map(function(name) {
+        if(!github_links.length) {
+          github_links = document.querySelectorAll('[href*="' + name + '"]')
+          console.log(github_links)
+        }
+      })
+    }
+
+    if( github_links.length ) {
+      url = github_links[github_links.length-1].href
+
+      // Go to thread instead of .diff link (pull request notifications)
+      url = url.match(/\.diff/) ? url.slice(0, url.length-5) : url
+
+      link = $("<a class='github-link T-I J-J5-Ji lS T-I-ax7 ar7' target='_blank' href='"+ url +"'>Visit Thread on GitHub</a>")
+      $(".iH > div").append(link)
+
+      window.idled = true
+    }
+  })
+}
+
 
 $(document).on("keypress", function(event) {  
 
