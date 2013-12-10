@@ -27,6 +27,14 @@ Open a selected GitHub notification email thread using `ctrl + return(enter)` in
 2. Unzip the folder wherever you'd like.
 3. Go to Chrome extensions page (`chrome://extensions/`) and load the folder as an **Unpacked extension**.
 
+### GitHub Enterprise
+
+If you are using GitHub enterprise and have a custom domain, you can set it in the extension options page.
+
+![](https://f.cloud.github.com/assets/1153134/1715451/2fcb1c8a-61b3-11e3-9960-1f3ef6a48f48.png)
+
+![](https://f.cloud.github.com/assets/1153134/1714892/1e258442-61aa-11e3-9732-f18fbdc5af49.png)
+
 ### Code
 
 Just in case if you're not familiar with how Chrome extension is built, you can find all the relevant code in `src/inject/inject.js`.
