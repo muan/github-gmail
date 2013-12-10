@@ -1,9 +1,10 @@
 defaultOptions = {
-  // 'Button': '',
-  // 'List view trigger': '',
-  // 'Label RegExp': '',
   'Domains': ''
 }
+
+$(document).ready(function {
+  initOptions(defaultOptions)
+})
 
 function initOptions (defaultOptions) {
   options = {}
@@ -26,9 +27,7 @@ function initOptions (defaultOptions) {
 
 }
 
-// Saves options to localStorage.
-function save_options() {
-
+$(document).on('click', '#save', function() {
   $('input[name]').map(function(i, e) {
     localStorage[e.name] = e.value
   })
@@ -39,26 +38,4 @@ function save_options() {
   setTimeout(function() {
     save.innerHTML = 'Save'
   }, 750)
-}
-
-// Restores select box state to saved value from localStorage.
-function restore_options() {
-  var favorite = localStorage['favorite_color']
-  if (!favorite) {
-    return
-  }
-  var select = document.getElementById('color')
-  for (var i = 0; i < select.children.length; i++) {
-    var child = select.children[i]
-    if (child.value == favorite) {
-      child.selected = 'true'
-      break
-    }
-  }
-}
-
-document.ready = function() {
-  document.addEventListener('DOMContentLoaded', restore_options)
-  document.querySelector('#save').addEventListener('click', save_options)
-  initOptions(defaultOptions)
-}
+})
