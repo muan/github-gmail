@@ -1,4 +1,4 @@
-## GitHub + Gmail
+# GitHub + Gmail
 
 Open your GitHub notifications using `shift + g`, or this button in mail view:
 
@@ -15,19 +15,19 @@ Open a selected GitHub notification email thread using `ctrl + return(enter)` in
 
 ![image](https://f.cloud.github.com/assets/1153134/1608782/cf8e3000-5514-11e3-9d48-0d7307065c2e.png)
 
-### Installation
+## Installation
 
-#### The easy way
+### The easy way
 
 [Install the extension via Chrome webstore](https://chrome.google.com/webstore/detail/github-notification-helpe/gmhijkhbpihfmkmhmcfebmlkaekgmaje)
 
-#### The muan-might-steal-all-my-data-so-I-want-to-manually-load-it way
+### The muan-might-steal-all-my-data-so-I-want-to-manually-load-it way
 
 1. Go to [Releases](https://github.com/muan/github-gmail/releases) and download the latest version.
 2. Unzip the folder wherever you'd like.
 3. Go to Chrome extensions page (`chrome://extensions/`) and load the folder as an **Unpacked extension**.
 
-### GitHub Enterprise
+## GitHub Enterprise
 
 If you are using GitHub enterprise and have a custom domain, you can set it in the extension options page.
 
@@ -35,11 +35,11 @@ If you are using GitHub enterprise and have a custom domain, you can set it in t
 
 ![](https://f.cloud.github.com/assets/1153134/1714892/1e258442-61aa-11e3-9732-f18fbdc5af49.png)
 
-### Code
+## Code
 
 Just in case if you're not familiar with how Chrome extension is built, you can find all the relevant code in `src/inject/inject.js`.
 
-### The end
+## The end
 
 Like it? Tell this little bird over at [`@muanchiou`](https://twitter.com/muanchiou) and I'll be thrilled.
 
