@@ -43,4 +43,4 @@ Just in case if you're not familiar with how Chrome extension is built, you can 
 
 Like it? Tell this little bird over at [`@muanchiou`](https://twitter.com/muanchiou) and I'll be thrilled.
 
-Found a bug? [Open an issue](https://github.com/muan/github-gmail/issues/new) with some [emojis](http://emoji.muan.co). Issues without emojis are not valid.
+Found a bug? [Open an issue](https://github.com/muan/github-gmail/issues/new) with some [emojis](http://emoji.muan.co). Issues without emojis are not valid. :trollface:
