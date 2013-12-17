@@ -7,7 +7,7 @@ function initOnHashChangeAction(domains) {
 
   // Find GitHub link and append it to tool bar on hashchange
   $(window).on('hashchange', function() {
-    allDomains = "github.com,"
+    allDomains = "//github.com,"
     if(domains) allDomains += domains
 
     // Take string -> make array -> make queries -> avoid nil -> join queries to string
