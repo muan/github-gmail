@@ -1,6 +1,6 @@
 // Retriving user options
 chrome.extension.sendMessage({}, function(settings) {
-  initOnHashChangeAction(settings['Domains']);
+  initOnHashChangeAction(settings['Domains'])
 })
 
 function initOnHashChangeAction(domains) {
@@ -11,8 +11,8 @@ function initOnHashChangeAction(domains) {
     if(domains) allDomains += domains
 
     // Take string -> make array -> make queries -> avoid nil -> join queries to string
-    selectors = allDomains.replace(/\s/, '').split(',').map(function (name) { 
-      if (name.length) return ("[href*='" + name + "']") 
+    selectors = allDomains.replace(/\s/, '').split(',').map(function (name) {
+      if (name.length) return ("[href*='" + name + "']")
     }).filter(function(name) { return name }).join(", ")
 
     github_links = document.querySelectorAll(selectors)
@@ -32,16 +32,16 @@ function initOnHashChangeAction(domains) {
 }
 
 
-$(document).on("keypress", function(event) {  
+$(document).on("keypress", function(event) {
 
   // Shortcut: bind shift + G, if a button exist and event not in a textarea
-  if( event.shiftKey && event.keyCode == 71 && window.idled && $(".github-link:visible")[0] && notAnInput(event.target)) { 
+  if( event.shiftKey && event.keyCode == 71 && window.idled && $(".github-link:visible")[0] && notAnInput(event.target)) {
     triggerGitHubLink()
   }
 
   // Shortcut: bind ctrl + return
   selected = getVisible(document.querySelectorAll('.PE ~ [tabindex="0"]'))
-  if( event.ctrlKey && event.keyCode == 13 && selected ) { 
+  if( event.ctrlKey && event.keyCode == 13 && selected ) {
     generateUrlAndGoTo(selected)
   }
 })
@@ -93,13 +93,13 @@ function linkWithUrl (url) {
 
 function getVisible (nodeList) {
   if(nodeList.length) {
-    var node;
+    var node
     $(nodeList).map(function() {
       if(typeof node == 'undefined' && (this.offsetTop > 0 || this.offsetLeft > 0)) {
-        node = this 
+        node = this
       }
     })
-    return node 
+    return node
   }
 }
 
