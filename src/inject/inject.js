@@ -4,31 +4,52 @@ chrome.extension.sendMessage({}, function(settings) {
 })
 
 function initOnHashChangeAction(domains) {
+  allDomains = "//github.com,"
+  if(domains) allDomains += domains
+
+  // Take string -> make array -> make queries -> avoid nil -> join queries to string
+  selectors = allDomains.replace(/\s/, '').split(',').map(function (name) {
+    if (name.length) return (".AO [href*='" + name + "']")
+  }).filter(function(name) { return name }).join(", ")
+
+  intervals = []
 
   // Find GitHub link and append it to tool bar on hashchange
-  $(window).on('hashchange', function() {
-    allDomains = "//github.com,"
-    if(domains) allDomains += domains
+  window.onhashchange = function() {
+    // In case previous intervals got interrupted
+    clearAllIntervals()
 
-    // Take string -> make array -> make queries -> avoid nil -> join queries to string
-    selectors = allDomains.replace(/\s/, '').split(',').map(function (name) {
-      if (name.length) return ("[href*='" + name + "']")
-    }).filter(function(name) { return name }).join(", ")
+    retryForActiveMailBody = setInterval(function() {
+      mail_body = $('.nH.hx').filter(function() { return this.clientHeight != 0 })[0]
 
-    github_links = document.querySelectorAll(selectors)
+      if( mail_body ) {
 
-    if( github_links.length ) {
-      url = github_links[github_links.length-1].href
+        github_links = mail_body.querySelectorAll(selectors)
 
-      // Go to thread instead of .diff link (pull request notifications)
-      url = url.match(/\.diff/) ? url.slice(0, url.length-5) : url
+        // Avoid multple buttons
+        $('.github-link').remove()
 
-      link = $("<a class='github-link T-I J-J5-Ji lS T-I-ax7 ar7' target='_blank' href='"+ url +"'>Visit Thread on GitHub</a>")
-      $(".iH > div").append(link)
+        if( github_links.length ) {
 
-      window.idled = true
-    }
-  })
+          url = github_links[github_links.length-1].href
+          // Go to thread instead of .diff link (pull request notifications)
+          url = url.match(/\.diff/) ? url.slice(0, url.length-5) : url
+          link = $("<a class='github-link T-I J-J5-Ji lS T-I-ax7 ar7' target='_blank' href='"+ url +"'>Visit Thread on GitHub</a>")
+
+          $(".iH > div").append(link)
+          window.idled = true
+
+        }
+
+        clearInterval(retryForActiveMailBody)
+      } else if ( $('.nH.hx').length == 0 ) {
+        // Not in a mail view
+        clearInterval(retryForActiveMailBody)
+      }
+    }, 100)
+
+    intervals.push(retryForActiveMailBody)
+  }
 }
 
 
@@ -46,14 +67,13 @@ $(document).on("keypress", function(event) {
   }
 })
 
-
 // Trigger the appended link in mail view
 function triggerGitHubLink () {
   // avoid link being appended multiple times    
   window.idled = false
 
   $(".github-link:visible")[0].dispatchEvent(fakeClick())
-  setTimeout( function(){ window.idled = true }, 1000)
+  setTimeout( function(){ window.idled = true }, 100)
 }
 
 // Go to selected email GitHub thread
@@ -105,4 +125,11 @@ function getVisible (nodeList) {
 
 function notAnInput (element) {
   return !element.className.match(/editable/) && element.tagName != "TEXTAREA" && element.tagName != "INPUT"
+}
+
+function clearAllIntervals () {
+  intervals.map(function(num) {
+    clearInterval(num)
+    delete intervals[intervals.indexOf(num)]
+  })
 }
