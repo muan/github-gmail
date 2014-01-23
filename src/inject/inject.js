@@ -54,7 +54,7 @@ function triggerGitHubLink () {
   window.idled = false
 
   $(".github-link:visible")[0].dispatchEvent(fakeClick())
-  setTimeout( function(){ window.idled = true }, 1000)
+  setTimeout( function(){ window.idled = true }, 100)
 }
 
 // Go to selected email GitHub thread
