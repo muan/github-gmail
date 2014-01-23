@@ -12,8 +12,12 @@ function initOnHashChangeAction(domains) {
     if (name.length) return (".AO [href*='" + name + "']")
   }).filter(function(name) { return name }).join(", ")
 
+  intervals = []
+
   // Find GitHub link and append it to tool bar on hashchange
   window.onhashchange = function() {
+    // In case previous intervals got interrupted
+    clearAllIntervals()
 
     retryForActiveMailBody = setInterval(function() {
       mail_body = $('.nH.hx').filter(function() { return this.clientHeight != 0 })[0]
@@ -38,8 +42,13 @@ function initOnHashChangeAction(domains) {
         }
 
         clearInterval(retryForActiveMailBody)
+      } else if ( $('.nH.hx').length == 0 ) {
+        // Not in a mail view
+        clearInterval(retryForActiveMailBody)
       }
     }, 100)
+
+    intervals.push(retryForActiveMailBody)
   }
 }
 
@@ -116,4 +125,11 @@ function getVisible (nodeList) {
 
 function notAnInput (element) {
   return !element.className.match(/editable/) && element.tagName != "TEXTAREA" && element.tagName != "INPUT"
+}
+
+function clearAllIntervals () {
+  intervals.map(function(num) {
+    clearInterval(num)
+    delete intervals[intervals.indexOf(num)]
+  })
 }
