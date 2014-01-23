@@ -47,7 +47,6 @@ $(document).on("keypress", function(event) {
   }
 })
 
-
 // Trigger the appended link in mail view
 function triggerGitHubLink () {
   // avoid link being appended multiple times    
