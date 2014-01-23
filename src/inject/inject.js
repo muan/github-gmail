@@ -13,23 +13,34 @@ function initOnHashChangeAction(domains) {
   }).filter(function(name) { return name }).join(", ")
 
   // Find GitHub link and append it to tool bar on hashchange
-  $(window).on('hashchange', function() {
+  window.onhashchange = function() {
 
+    retryForActiveMailBody = setInterval(function() {
+      mail_body = $('.nH.hx').filter(function() { return this.clientHeight != 0 })[0]
 
-    github_links = document.querySelectorAll(selectors)
+      if( mail_body ) {
 
-    if( github_links.length ) {
-      url = github_links[github_links.length-1].href
+        github_links = mail_body.querySelectorAll(selectors)
 
-      // Go to thread instead of .diff link (pull request notifications)
-      url = url.match(/\.diff/) ? url.slice(0, url.length-5) : url
+        // Avoid multple buttons
+        $('.github-link').remove()
 
-      link = $("<a class='github-link T-I J-J5-Ji lS T-I-ax7 ar7' target='_blank' href='"+ url +"'>Visit Thread on GitHub</a>")
-      $(".iH > div").append(link)
+        if( github_links.length ) {
 
-      window.idled = true
-    }
-  })
+          url = github_links[github_links.length-1].href
+          // Go to thread instead of .diff link (pull request notifications)
+          url = url.match(/\.diff/) ? url.slice(0, url.length-5) : url
+          link = $("<a class='github-link T-I J-J5-Ji lS T-I-ax7 ar7' target='_blank' href='"+ url +"'>Visit Thread on GitHub</a>")
+
+          $(".iH > div").append(link)
+          window.idled = true
+
+        }
+
+        clearInterval(retryForActiveMailBody)
+      }
+    }, 100)
+  }
 }
 
 
