@@ -1,8 +1,5 @@
-defaultOptions = {
-  'Domains': ''
-}
-
-$(document).ready(function (){
+$.getJSON('options.json', function(data) {
+  defaultOptions = data
   initOptions(defaultOptions)
 })
 
