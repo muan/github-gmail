@@ -1,6 +1,7 @@
 // Retriving user options
 chrome.extension.sendMessage({}, function(settings) {
   initOnHashChangeAction(settings['Domains'])
+  initShortcut(settings['Shortcut'])
 })
 
 function initOnHashChangeAction(domains) {
@@ -52,20 +53,43 @@ function initOnHashChangeAction(domains) {
   }
 }
 
+function initShortcut(shortcut) {
 
-$(document).on("keypress", function(event) {
+  $(document).on("keypress", function(event) {
 
-  // Shortcut: bind shift + G, if a button exist and event not in a textarea
-  if( event.shiftKey && event.keyCode == 71 && window.idled && $(".github-link:visible")[0] && notAnInput(event.target)) {
-    triggerGitHubLink()
-  }
+    // Processing shortcut from preference
+    combination = shortcut.replace(/\s/g, '').split('+')
 
-  // Shortcut: bind ctrl + return
-  selected = getVisible(document.querySelectorAll('.PE ~ [tabindex="0"]'))
-  if( event.ctrlKey && event.keyCode == 13 && selected ) {
-    generateUrlAndGoTo(selected)
-  }
-})
+    keys = ['shift', 'alt', 'meta', 'ctrl']
+    trueOrFalse = []
+
+    // If a key is in the combination, push the value to trueOrFalse array, and delete it from the combination
+    keys.map(function(key) {
+      index = combination.indexOf(key)
+      if(index >= 0) { 
+        trueOrFalse.push( eval('event.' + key + 'Key' ) )
+        combination.splice(index, 1)
+      }
+    })
+
+    // If there is a keyCode left, add that to the mix.
+    if(combination.length) trueOrFalse << (event.keyCode == combination[0])
+
+    // Evaluate trueOrFalse by looking for the existence of False
+    trueOrFalse = (trueOrFalse.indexOf(false) < 0)
+
+    // Shortcut: bind user's combination, if a button exist and event not in a textarea
+    if( trueOrFalse && window.idled && $(".github-link:visible")[0] && notAnInput(event.target)) {
+      triggerGitHubLink()
+    }
+
+    // Shortcut: bind ctrl + return
+    selected = getVisible(document.querySelectorAll('.PE ~ [tabindex="0"]'))
+    if( event.ctrlKey && event.keyCode == 13 && selected ) {
+      generateUrlAndGoTo(selected)
+    }
+  })
+}
 
 // Trigger the appended link in mail view
 function triggerGitHubLink () {
