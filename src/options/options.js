@@ -1,5 +1,6 @@
 defaultOptions = {
-  'Domains': ''
+  'Domains': '',
+  'Shortcut': 'shift + 71'
 }
 
 $(document).ready(function (){
@@ -26,6 +27,17 @@ function initOptions (defaultOptions) {
   }
 
 }
+
+$(document).on('keypress', '[name=Shortcut]', function(e) {
+  code = ''
+  keys = ['shift', 'alt', 'meta', 'ctrl']
+  keys.map(function(key) {
+    if( eval('e.' + key + 'Key' ) ) { code += key + " + " }
+  })
+  code += e.keyCode
+  $(this).val(code)
+  return false
+})
 
 $(document).on('click', '#save', function() {
   $('input[name]').map(function(i, e) {
