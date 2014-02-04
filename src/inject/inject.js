@@ -102,6 +102,16 @@ function initListViewShortcut(regexp) {
   })
 }
 
+function initListViewShortcut(regexp) {
+  $(document).on("keypress", function(event) {
+    // Shortcut: bind ctrl + return
+    selected = getVisible(document.querySelectorAll('.PE ~ [tabindex="0"]'))
+    if( event.ctrlKey && event.keyCode == 13 && selected ) {
+      generateUrlAndGoTo(selected, regexp)
+    }
+  })
+}
+
 // Trigger the appended link in mail view
 function triggerGitHubLink () {
   // avoid link being appended multiple times    

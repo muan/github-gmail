@@ -37,9 +37,10 @@ $(document).on('keypress', '[name=Shortcut]', function(e) {
 })
 
 $(document).on('keypress', 'input[type]', function(e) {
-  if( e.keyCode == 13 )
+  if( e.keyCode == 13 ) {
     $(this).blur()
     $('#save').click()
+  }
 })
 
 $(document).on('click', '#save', function() {
