@@ -2,20 +2,26 @@
 
 ### 1
 
-Open your GitHub notifications using `shift + g`, or this button in mail view:
+Open your GitHub notifications using `shift + g`(customisable), or this button in mail view:
 
 ![image](https://f.cloud.github.com/assets/1153134/1699454/20634378-5f9f-11e3-999c-c0c5e3e96684.png)
+
+![shortcut option](https://f.cloud.github.com/assets/1153134/2075942/9c8e233e-8d97-11e3-82e9-8e7b8c323639.png)
 
 ### 2 (Require setup)
 
 You have to have
 
 1. Gmail shortcut mode enabled 
-2. An organization named label as the first label for an email.
+2. An organization named label matching the Regular Expression (default to `^\((.+)\)`).
 
 Open a selected GitHub notification email thread using `ctrl + return(enter)` in a list view where the label is present.
 
-![image](https://f.cloud.github.com/assets/1153134/2073597/f19b6232-8d61-11e3-8e65-b03db4e72217.png)
+![list view](https://f.cloud.github.com/assets/1153134/2073597/f19b6232-8d61-11e3-8e65-b03db4e72217.png)
+
+Customise the Regular Expression on the options page:
+
+![regexp option](https://f.cloud.github.com/assets/1153134/2075937/8508db64-8d97-11e3-9a74-73554178272e.png)
 
 ## Installation
 
@@ -37,7 +43,7 @@ If you are using GitHub enterprise and have a custom domain, you can set it in t
 
 ![](https://f.cloud.github.com/assets/1153134/1715451/2fcb1c8a-61b3-11e3-9960-1f3ef6a48f48.png)
 
-![](https://f.cloud.github.com/assets/1153134/1714892/1e258442-61aa-11e3-9732-f18fbdc5af49.png)
+![domain option](https://f.cloud.github.com/assets/1153134/2075910/2f9b1f70-8d97-11e3-9798-9afcfb550e22.png)
 
 ## Code
 
