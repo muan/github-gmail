@@ -117,6 +117,7 @@ function triggerGitHubLink () {
 
 // Go to selected email GitHub thread
 function generateUrlAndGoTo (selected, regexp) {
+  // If the title looks like a GitHub notification email.
   if( (title = selected.innerText.match(/\[(.*)\]\s.*\s\(\#(\d*)\)/)) ) {
 
     // org name coms from a label
