@@ -13,7 +13,7 @@ You have to have
 1. Gmail shortcut mode enabled 
 2. An organization named label as the first label for an email.
 
-Open a selected GitHub notification email thread using `ctrl + return(enter)` in a list view where the label is present, and/or from any email view.
+Open a selected GitHub notification email thread using `ctrl + return(enter)` in a list view where the label is present.
 
 ![image](https://f.cloud.github.com/assets/1153134/1608782/cf8e3000-5514-11e3-9d48-0d7307065c2e.png)
 
