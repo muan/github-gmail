@@ -7,10 +7,7 @@ function initOptions (defaultOptions) {
   options = defaultOptions
 
   for (var key in defaultOptions) {
-    if( localStorage[key] ) {
-      // Legacy check for string
-      options[key].val = typeof localStorage[key] == "string" ? localStorage[key] : localStorage[key].val
-    }
+    if( localStorage[key] ) { options[key].val = localStorage[key] }
   }
 
   optionsWrapper = document.getElementById('options')
