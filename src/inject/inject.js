@@ -1,7 +1,8 @@
 // Retriving user options
 chrome.extension.sendMessage({}, function(settings) {
   initOnHashChangeAction(settings['Domains'])
-  initListViewShortcut(settings['Regexp'])
+  initShortcut(settings['Shortcut'])
+  initListViewShortcut(settings['RegExp'])
 })
 
 function initOnHashChangeAction(domains) {
@@ -53,15 +54,47 @@ function initOnHashChangeAction(domains) {
   }
 }
 
+function initShortcut(shortcut) {
 
-$(document).on("keypress", function(event) {
+  $(document).on("keypress", function(event) {
 
-  // Shortcut: bind shift + G, if a button exist and event not in a textarea
-  if( event.shiftKey && event.keyCode == 71 && window.idled && $(".github-link:visible")[0] && notAnInput(event.target)) {
-    triggerGitHubLink()
-  }
+    // Processing shortcut from preference
+    combination = shortcut.replace(/\s/g, '').split('+')
 
-})
+    keys = ['shift', 'alt', 'meta', 'ctrl']
+    trueOrFalse = []
+
+    // If a key is in the combination, push the value to trueOrFalse array, and delete it from the combination
+    keys.map(function(key) {
+      index = combination.indexOf(key)
+      if(index >= 0) { 
+        trueOrFalse.push( eval('event.' + key + 'Key' ) )
+        combination.splice(index, 1)
+      }
+    })
+
+    // If there is a keyCode left, add that to the mix.
+    if(combination.length) trueOrFalse.push(event.keyCode == combination[0])
+
+    // Evaluate trueOrFalse by looking for the existence of False
+    trueOrFalse = (trueOrFalse.indexOf(false) < 0)
+
+    // Shortcut: bind user's combination, if a button exist and event not in a textarea
+    if( trueOrFalse && window.idled && $(".github-link:visible")[0] && notAnInput(event.target)) {
+      triggerGitHubLink()
+    }
+  })
+}
+
+function initListViewShortcut(regexp) {
+  $(document).on("keypress", function(event) {
+    // Shortcut: bind ctrl + return
+    selected = getVisible(document.querySelectorAll('.PE ~ [tabindex="0"]'))
+    if( event.ctrlKey && event.keyCode == 13 && selected ) {
+      generateUrlAndGoTo(selected, regexp)
+    }
+  })
+}
 
 function initListViewShortcut(regexp) {
   $(document).on("keypress", function(event) {
@@ -84,6 +117,7 @@ function triggerGitHubLink () {
 
 // Go to selected email GitHub thread
 function generateUrlAndGoTo (selected, regexp) {
+  // If the title looks like a GitHub notification email.
   if( (title = selected.innerText.match(/\[(.*)\]\s.*\s\(\#(\d*)\)/)) ) {
 
     // org name coms from a label

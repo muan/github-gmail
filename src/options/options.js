@@ -24,6 +24,18 @@ function initOptions (defaultOptions) {
 
 }
 
+$(document).on('keypress', '[name=Shortcut]', function(e) {
+  if (e.keyCode == 13 && !e.shiftKey && !e.metaKey && !e.altKey && !e.ctrlKey ) return false
+  code = ''
+  keys = ['shift', 'alt', 'meta', 'ctrl']
+  keys.map(function(key) {
+    if( eval('e.' + key + 'Key' ) ) { code += key + " + " }
+  })
+  code += e.keyCode
+  $(this).val(code)
+  e.preventDefault()
+})
+
 $(document).on('keypress', 'input[type]', function(e) {
   if( e.keyCode == 13 ) {
     $(this).blur()

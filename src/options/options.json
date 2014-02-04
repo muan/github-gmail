@@ -4,6 +4,11 @@
     "val": "",
     "hint": "( comma separated if multiple )"
   },
+  "Shortcut" : {
+    "description": "The shortcut that triggers button clicking on the mail view.",
+    "val": "shift + 71",
+    "hint": " ( press shortcut in the input field )"
+  },
   "RegExp" : {
     "description": "Custom Regular Expression for matching labled Organization name. Eg. <code>/^\\((.+)\\)/</code> matches <code><strong>muan</strong></code> in <code>(<strong>muan</strong>)\\github-gmail</code>, and will be use to build the url <code>https://github.com/<strong>muan</strong>/github-gmail/issues</code>.",
     "val": "^\\((.+)\\)",
