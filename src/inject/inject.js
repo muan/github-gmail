@@ -83,12 +83,6 @@ function initShortcut(shortcut) {
     if( trueOrFalse && window.idled && $(".github-link:visible")[0] && notAnInput(event.target)) {
       triggerGitHubLink()
     }
-
-    // Shortcut: bind ctrl + return
-    selected = getVisible(document.querySelectorAll('.PE ~ [tabindex="0"]'))
-    if( event.ctrlKey && event.keyCode == 13 && selected ) {
-      generateUrlAndGoTo(selected)
-    }
   })
 }
 
