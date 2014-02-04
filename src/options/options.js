@@ -24,6 +24,12 @@ function initOptions (defaultOptions) {
 
 }
 
+$(document).on('keypress', 'input[type]', function(e) {
+  if( e.keyCode == 13 )
+    $(this).blur()
+    $('#save').click()
+})
+
 $(document).on('click', '#save', function() {
   $('input[name]').map(function(i, e) {
     localStorage[e.name] = e.value
