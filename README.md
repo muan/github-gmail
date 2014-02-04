@@ -1,12 +1,14 @@
 # GitHub + Gmail
 
+### 1
+
 Open your GitHub notifications using `shift + g`, or this button in mail view:
 
 ![image](https://f.cloud.github.com/assets/1153134/1699454/20634378-5f9f-11e3-999c-c0c5e3e96684.png)
 
-**or** 
+### 2 (Require setup)
 
-The following is very much experimental, and requires 
+You have to have
 
 1. Gmail shortcut mode enabled 
 2. An organization named label as the first label for an email.
