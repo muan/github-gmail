@@ -1,28 +1,25 @@
-defaultOptions = {
-  'Domains': ''
-}
-
-$(document).ready(function (){
+$.getJSON('options.json', function(data) {
+  defaultOptions = data
   initOptions(defaultOptions)
 })
 
 function initOptions (defaultOptions) {
-  options = {}
+  options = defaultOptions
 
   for (var key in defaultOptions) {
-    options[key] = localStorage[key] || defaultOptions[key]
+    if( localStorage[key] ) {
+      // Legacy check for string
+      options[key].val = typeof localStorage[key] == "string" ? localStorage[key] : localStorage[key].val
+    }
   }
 
   optionsWrapper = document.getElementById('options')
 
   for (var key in options) {
-    title = key
-    if (key == 'Domains') {
-      title += " (comma separated if multiple)"
-    }
-
-    $(optionsWrapper).append('<label>' + title + '</label>')
-    $(optionsWrapper).append('<input name=\'' + key + '\' value=\'' + options[key] +'\' type=\'text\'>')
+    html  = '<div class=\'option\'><label>' + key + ' ' + options[key].hint + '</label>'
+    html += '<p class=\'description\'>' + options[key].description + '</p>'
+    html += '<input name=\'' + key + '\' value=\'' + options[key].val +'\' type=\'text\' /></div>'
+    $(optionsWrapper).append(html)
   }
 
 }
