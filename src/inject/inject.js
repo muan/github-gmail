@@ -2,6 +2,7 @@
 chrome.extension.sendMessage({}, function(settings) {
   initOnHashChangeAction(settings['Domains'])
   initShortcut(settings['Shortcut'])
+  initListViewShortcut(settings['Regexp'])
 })
 
 function initOnHashChangeAction(domains) {
@@ -91,6 +92,16 @@ function initShortcut(shortcut) {
   })
 }
 
+function initListViewShortcut(regexp) {
+  $(document).on("keypress", function(event) {
+    // Shortcut: bind ctrl + return
+    selected = getVisible(document.querySelectorAll('.PE ~ [tabindex="0"]'))
+    if( event.ctrlKey && event.keyCode == 13 && selected ) {
+      generateUrlAndGoTo(selected, regexp)
+    }
+  })
+}
+
 // Trigger the appended link in mail view
 function triggerGitHubLink () {
   // avoid link being appended multiple times    
@@ -101,13 +112,15 @@ function triggerGitHubLink () {
 }
 
 // Go to selected email GitHub thread
-function generateUrlAndGoTo (selected) {
+function generateUrlAndGoTo (selected, regexp) {
   if( (title = selected.innerText.match(/\[(.*)\]\s.*\s\(\#(\d*)\)/)) ) {
 
     // org name coms from a label
-    org = selected.querySelectorAll('.av')[0].innerText.toLowerCase()
+    regexp = new RegExp(regexp)
+    org = selected.querySelectorAll('.av')[0].innerText.toLowerCase().match(regexp)
 
     if(org) {
+      org = org[1]
       repo = title[1]
       issue_no = title[2]
 
