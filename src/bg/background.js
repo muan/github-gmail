@@ -4,7 +4,10 @@ request.send()
 
 request.onload = function() {
   data = JSON.parse(this.response)
-  for (var attr in localStorage) { data[attr] = localStorage[attr] }
+  for (var key in data) {
+    data[key] = data[key].val
+    if(localStorage[key]) { data[key] = localStorage[key] }
+  }
 
   chrome.extension.onMessage.addListener(
     function(request, sender, sendMessage) {
