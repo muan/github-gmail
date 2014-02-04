@@ -2,7 +2,7 @@
 chrome.extension.sendMessage({}, function(settings) {
   initOnHashChangeAction(settings['Domains'])
   initShortcut(settings['Shortcut'])
-  initListViewShortcut(settings['Regexp'])
+  initListViewShortcut(settings['RegExp'])
 })
 
 function initOnHashChangeAction(domains) {
