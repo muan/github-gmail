@@ -35,6 +35,11 @@ body, * {
   background-color: #fff;
 }
 
+.saved.option {
+  background: #ffe;
+  color: #333;
+}
+
 input[type]:focus {
   background-color: #fff;
 }

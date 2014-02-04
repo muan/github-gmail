@@ -31,14 +31,18 @@ $(document).on('keypress', 'input[type]', function(e) {
 })
 
 $(document).on('click', '#save', function() {
+  fields = []
   $('input[name]').map(function(i, e) {
+    if( localStorage[e.name] != e.value ) fields.push(e)
     localStorage[e.name] = e.value
   })
 
   // Update status to let user know options were saved.
   var save = document.getElementById('save')
-  save.innerHTML = 'Saved.'
+  save.innerHTML = 'Updated!'
+  $(fields).closest('.option').removeClass('saved').addClass('saved')
   setTimeout(function() {
+    $(fields).closest('.option').removeClass('saved')
     save.innerHTML = 'Save'
-  }, 750)
+  }, 2050)
 })
