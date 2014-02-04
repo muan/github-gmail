@@ -15,7 +15,7 @@ You have to have
 
 Open a selected GitHub notification email thread using `ctrl + return(enter)` in a list view where the label is present.
 
-![image](https://f.cloud.github.com/assets/1153134/1608782/cf8e3000-5514-11e3-9d48-0d7307065c2e.png)
+![image](https://f.cloud.github.com/assets/1153134/2073597/f19b6232-8d61-11e3-8e65-b03db4e72217.png)
 
 ## Installation
 
