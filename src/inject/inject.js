@@ -74,7 +74,7 @@ function initShortcut(shortcut) {
     })
 
     // If there is a keyCode left, add that to the mix.
-    if(combination.length) trueOrFalse << (event.keyCode == combination[0])
+    if(combination.length) trueOrFalse.push(event.keyCode == combination[0])
 
     // Evaluate trueOrFalse by looking for the existence of False
     trueOrFalse = (trueOrFalse.indexOf(false) < 0)
