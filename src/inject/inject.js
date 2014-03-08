@@ -27,6 +27,7 @@ function initOnHashChangeAction(domains) {
       if( mail_body ) {
 
         github_links = mail_body.querySelectorAll(selectors)
+        github_links = reject_unwanted_paths(github_links)
 
         // Avoid multple buttons
         $('.github-link').remove()
@@ -173,5 +174,16 @@ function clearAllIntervals () {
   intervals.map(function(num) {
     clearInterval(num)
     delete intervals[intervals.indexOf(num)]
+  })
+}
+
+function reject_unwanted_paths (links) {
+  return $(links).filter(function() {
+    // Reject unsubscribe and subscription management paths
+    // Make sure the keywords((un)subscribe) can still be repository names
+    paths = ['\/\/[^\/]*\/mailers\/unsubscribe\?', '\/\/[^\/]*\/.*\/.*\/unsubscribe_via_email', '\/\/[^\/]*\/.*\/.*\/subscription$']
+    regexp = new RegExp(paths.join('|'))
+    if(!this.href.match(regexp))
+      return this
   })
 }
