@@ -177,13 +177,12 @@ function clearAllIntervals () {
   })
 }
 
+// Reject unsubscribe and subscription management paths
+// Make sure the keywords((un)subscribe) can still be repository names
 function reject_unwanted_paths (links) {
+  paths = ['\/\/[^\/]*\/mailers\/unsubscribe\?', '\/\/[^\/]*\/.*\/.*\/unsubscribe_via_email', '\/\/[^\/]*\/.*\/.*\/subscription$']
+  regexp = new RegExp(paths.join('|'))
   return $(links).filter(function() {
-    // Reject unsubscribe and subscription management paths
-    // Make sure the keywords((un)subscribe) can still be repository names
-    paths = ['\/\/[^\/]*\/mailers\/unsubscribe\?', '\/\/[^\/]*\/.*\/.*\/unsubscribe_via_email', '\/\/[^\/]*\/.*\/.*\/subscription$']
-    regexp = new RegExp(paths.join('|'))
-    if(!this.href.match(regexp))
-      return this
+    if(!this.href.match(regexp)) return this
   })
 }
