@@ -2,7 +2,7 @@
 
 ### 1
 
-Open your GitHub notifications using `shift + g`(customisable), or this button in mail view:
+Open your GitHub notifications using `shift + g`(customizable), or this button in mail view:
 
 ![image](https://f.cloud.github.com/assets/1153134/1699454/20634378-5f9f-11e3-999c-c0c5e3e96684.png)
 
