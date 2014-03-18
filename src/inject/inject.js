@@ -68,7 +68,7 @@ function initShortcut(shortcut) {
     // If a key is in the combination, push the value to trueOrFalse array, and delete it from the combination
     keys.map(function(key) {
       index = combination.indexOf(key)
-      if(index >= 0) { 
+      if(index >= 0) {
         trueOrFalse.push( eval('event.' + key + 'Key' ) )
         combination.splice(index, 1)
       }
@@ -97,19 +97,9 @@ function initListViewShortcut(regexp) {
   })
 }
 
-function initListViewShortcut(regexp) {
-  $(document).on("keypress", function(event) {
-    // Shortcut: bind ctrl + return
-    selected = getVisible(document.querySelectorAll('.PE ~ [tabindex="0"]'))
-    if( event.ctrlKey && event.keyCode == 13 && selected ) {
-      generateUrlAndGoTo(selected, regexp)
-    }
-  })
-}
-
 // Trigger the appended link in mail view
 function triggerGitHubLink () {
-  // avoid link being appended multiple times    
+  // avoid link being appended multiple times
   window.idled = false
 
   $(".github-link:visible")[0].dispatchEvent(fakeClick())
@@ -136,9 +126,9 @@ function generateUrlAndGoTo (selected, regexp) {
   }
 }
 
-// 
+//
 // Helpers
-// 
+//
 
 // .click() doesn't usually work as expected
 function fakeClick () {
