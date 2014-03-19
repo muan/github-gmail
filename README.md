@@ -1,5 +1,7 @@
 # GitHub :octocat: :on: :love_letter: Gmail
 
+This is a **Chrome Extension** that allows you to open threads in GitHub notification emails with a shortcut. :sparkles:
+
 ## Features
 
 ### Mail View Shortcut
