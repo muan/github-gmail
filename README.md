@@ -6,7 +6,7 @@ This is a **Chrome Extension** that allows you to open threads in GitHub notific
 
 ### Mail View Shortcut
 
-Open your GitHub notifications using a shortcut (default to `shift + g`), or this button in mail view:
+Open your GitHub notifications using a shortcut (default to `shift + g`, or `shift + b` to open in the background), or this button in mail view:
 
 ![image](https://f.cloud.github.com/assets/1153134/1699454/20634378-5f9f-11e3-999c-c0c5e3e96684.png)
 
@@ -57,9 +57,15 @@ If you are using GitHub enterprise and have a custom domain, you can set it in t
 
 ### Mail View Shortcut
 
-Customize your keyboard shortcut for trigger the `View on GitHub` button. Change it by focusing the input, and press whatever key you want to be the shortcut. It will be displayed in `keyCode` which is why you see `71` here instead of `G`, don't worry about it.
+Customize your keyboard shortcut for trigger the `View on GitHub` button. Change it by focusing the input, and press whatever key you want to be the shortcut. It will be displayed in `keyCode` which is why you see `71` here instead of `g`, don't worry about it.
+
+#### To open and focus the new window right away (`shift + g`):
 
 ![image](https://f.cloud.github.com/assets/1153134/2457119/3a485f38-af2e-11e3-978a-ece296676337.png)
+
+#### To open a new window in the background (`shift + b`):
+
+![image](https://f.cloud.github.com/assets/1153134/2466997/e381dbc2-afb7-11e3-9470-bc722133a265.png)
 
 ### List View Regular Expression
 
