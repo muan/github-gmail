@@ -137,6 +137,12 @@ function fakeClick () {
   return click
 }
 
+function fakeBackgroundClick () {
+  var click = document.createEvent("MouseEvents")
+  click.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, true, 0, null)
+  return click
+}
+
 function linkWithUrl (url) {
   var l = document.createElement('a')
   l.href = url
