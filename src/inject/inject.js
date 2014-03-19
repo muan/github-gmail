@@ -1,7 +1,7 @@
 // Retriving user options
 chrome.extension.sendMessage({}, function(settings) {
   initOnHashChangeAction(settings['Domains'])
-  initShortcut(settings['Shortcut'])
+  initShortcuts(settings['Shortcut'], settings['BackgroundShortcut'])
   initListViewShortcut(settings['RegExp'])
 })
 
@@ -55,34 +55,16 @@ function initOnHashChangeAction(domains) {
   }
 }
 
-function initShortcut(shortcut) {
-
+function initShortcuts(shortcut, backgroundShortcut) {
   $(document).on("keypress", function(event) {
-
-    // Processing shortcut from preference
-    combination = shortcut.replace(/\s/g, '').split('+')
-
-    keys = ['shift', 'alt', 'meta', 'ctrl']
-    trueOrFalse = []
-
-    // If a key is in the combination, push the value to trueOrFalse array, and delete it from the combination
-    keys.map(function(key) {
-      index = combination.indexOf(key)
-      if(index >= 0) {
-        trueOrFalse.push( eval('event.' + key + 'Key' ) )
-        combination.splice(index, 1)
-      }
-    })
-
-    // If there is a keyCode left, add that to the mix.
-    if(combination.length) trueOrFalse.push(event.keyCode == combination[0])
-
-    // Evaluate trueOrFalse by looking for the existence of False
-    trueOrFalse = (trueOrFalse.indexOf(false) < 0)
-
     // Shortcut: bind user's combination, if a button exist and event not in a textarea
-    if( trueOrFalse && window.idled && $(".github-link:visible")[0] && notAnInput(event.target)) {
-      triggerGitHubLink()
+    if( processRightCombinationBasedOnShortcut(shortcut, event) && window.idled && $(".github-link:visible")[0] && notAnInput(event.target)) {
+      triggerGitHubLink(false)
+    }
+
+    // Bacground Shortcut: bind user's combination, if a button exist and event not in a textarea
+    if( processRightCombinationBasedOnShortcut(backgroundShortcut, event) && window.idled && $(".github-link:visible")[0] && notAnInput(event.target)) {
+      triggerGitHubLink(true)
     }
   })
 }
@@ -98,11 +80,12 @@ function initListViewShortcut(regexp) {
 }
 
 // Trigger the appended link in mail view
-function triggerGitHubLink () {
+function triggerGitHubLink (backgroundOrNot) {
   // avoid link being appended multiple times
   window.idled = false
+  event = backgroundOrNot ? fakeBackgroundClick() : fakeClick()
 
-  $(".github-link:visible")[0].dispatchEvent(fakeClick())
+  $(".github-link:visible")[0].dispatchEvent(event)
   setTimeout( function(){ window.idled = true }, 100)
 }
 
@@ -129,6 +112,29 @@ function generateUrlAndGoTo (selected, regexp) {
 //
 // Helpers
 //
+
+function processRightCombinationBasedOnShortcut (shortcut, event) {
+  // Processing shortcut from preference
+  combination = shortcut.replace(/\s/g, '').split('+')
+
+  keys = ['shift', 'alt', 'meta', 'ctrl']
+  trueOrFalse = []
+
+  // If a key is in the combination, push the value to trueOrFalse array, and delete it from the combination
+  keys.map(function(key) {
+    index = combination.indexOf(key)
+    if(index >= 0) {
+      trueOrFalse.push( eval('event.' + key + 'Key' ) )
+      combination.splice(index, 1)
+    }
+  })
+
+  // If there is a keyCode left, add that to the mix.
+  if(combination.length) trueOrFalse.push(event.keyCode == combination[0])
+
+  // Evaluate trueOrFalse by looking for the existence of False
+  return trueOrFalse = (trueOrFalse.indexOf(false) < 0)
+}
 
 // .click() doesn't usually work as expected
 function fakeClick () {

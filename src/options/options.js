@@ -21,7 +21,7 @@ function initOptions (defaultOptions) {
 
 }
 
-$(document).on('keypress', '[name=Shortcut]', function(e) {
+$(document).on('keypress', '[name=Shortcut], [name=BackgroundShortcut]', function(e) {
   if (e.keyCode == 13 && !e.shiftKey && !e.metaKey && !e.altKey && !e.ctrlKey ) return false
   code = ''
   keys = ['shift', 'alt', 'meta', 'ctrl']
