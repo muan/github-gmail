@@ -3,7 +3,6 @@ chrome.extension.sendMessage({}, function(settings) {
   initOnHashChangeAction(settings['Domains'])
   initShortcuts(settings['Shortcut'], settings['BackgroundShortcut'])
   initListViewShortcut(settings['RegExp'])
-
 })
 
 function initOnHashChangeAction(domains) {
@@ -50,7 +49,6 @@ function initOnHashChangeAction(domains) {
           document.getElementsByClassName('github-link')[0].addEventListener("DOMNodeRemovedFromDocument", function (ev) {
             fetchAndAppendGitHubLink()
           }, false)
-
         }
 
         clearInterval(retryForActiveMailBody)
