@@ -3,6 +3,7 @@ chrome.extension.sendMessage({}, function(settings) {
   initOnHashChangeAction(settings['Domains'])
   initShortcuts(settings['Shortcut'], settings['BackgroundShortcut'])
   initListViewShortcut(settings['RegExp'])
+
 })
 
 function initOnHashChangeAction(domains) {
@@ -18,6 +19,10 @@ function initOnHashChangeAction(domains) {
 
   // Find GitHub link and append it to tool bar on hashchange
   window.onhashchange = function() {
+    fetchAndAppendGitHubLink()
+  }
+
+  function fetchAndAppendGitHubLink() {
     // In case previous intervals got interrupted
     clearAllIntervals()
 
@@ -41,6 +46,10 @@ function initOnHashChangeAction(domains) {
 
           $(".iH > div").append(link)
           window.idled = true
+
+          document.getElementsByClassName('github-link')[0].addEventListener("DOMNodeRemovedFromDocument", function (ev) {
+            fetchAndAppendGitHubLink()
+          }, false)
 
         }
 
