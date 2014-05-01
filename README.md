@@ -77,6 +77,12 @@ Custom Regular Expression for matching labeled Organization name. Eg. `/^\((.+)\
 
 All the core functions are written in `src/inject/inject.js`.
 
+
+Licensing
+=========
+See LICENSE,txt for full license text
+
+
 ## The End
 
 **Love :heart: it?** Tell this little bird over at [`@muanchiou`](https://twitter.com/muanchiou) and I'll be thrilled.
