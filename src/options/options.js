@@ -49,6 +49,8 @@ $(document).on('click', '#save', function() {
 
   // Update status to let user know options were saved.
   var save = document.getElementById('save')
+  $('.notice').show()
+  window.scrollTo(0, 10000)
   save.innerHTML = 'Updated!'
   $(fields).closest('.option').removeClass('saved').addClass('saved')
   setTimeout(function() {

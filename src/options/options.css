@@ -18,6 +18,17 @@ body, * {
   border: 1px solid #e0e0e0;
 }
 
+.notice {
+  display: none;
+  background: #ffeeee;
+  border-top: 1px solid #fcc;
+  border-bottom: 1px solid #fcc;
+  color: #a00;
+  padding: 20px;
+  margin: -1px -20px 0;
+  font-weight: bold;
+}
+
 .option {
   margin: 0 -20px 0;
   padding: 20px;
@@ -27,7 +38,6 @@ body, * {
 
 .option:last-child {
   border-bottom: 1px solid #e0e0e0;
-  margin-bottom: 20px;
 }
 
 .option:nth-child(even) {
@@ -74,7 +84,7 @@ button {
   text-transform: uppercase;
   box-shadow: inset 0 -4px 0 rgba(0, 0, 0, .1);
   transition: all .6s;
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
 button:active {
