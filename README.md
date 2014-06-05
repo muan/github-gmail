@@ -57,7 +57,7 @@ If you are using GitHub enterprise and have a custom domain, you can set it in t
 
 ### Mail View Shortcut
 
-Customize your keyboard shortcut for trigger the `View on GitHub` button. Change it by focusing the input, and press whatever key you want to be the shortcut. It will be displayed in `keyCode` which is why you see `71` here instead of `g`, don't worry about it.
+Customize the keyboard shortcut that triggers the `View on GitHub` button. Change the shortcut combination by focusing the input, and press whatever key(s) you want to be the shortcut. It will be displayed in `keyCode` which is why you see `71` here instead of `g`. Don't worry about it.
 
 #### To open and focus the new window right away (`shift + g`):
 
