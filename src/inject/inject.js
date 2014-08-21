@@ -79,7 +79,7 @@ function initShortcuts(shortcut, backgroundShortcut) {
 function initListViewShortcut(regexp) {
   $(document).on("keypress", function(event) {
     // Shortcut: bind ctrl + return
-    selected = getVisible(document.querySelectorAll('.PE ~ [tabindex="0"]'))
+    selected = getVisible(document.querySelectorAll('.zA[tabindex="0"]'))
     if( event.ctrlKey && event.keyCode == 13 && selected ) {
       generateUrlAndGoTo(selected, regexp)
     }
@@ -90,7 +90,7 @@ function initListViewShortcut(regexp) {
 function triggerGitHubLink (backgroundOrNot) {
   // avoid link being appended multiple times
   window.idled = false
-  event = backgroundOrNot ? fakeBackgroundClick() : fakeClick()
+  event = backgroundOrNot ? fakeBackgroundClick() : fakeEvent('click')
 
   $(".github-link:visible")[0].dispatchEvent(event)
   setTimeout( function(){ window.idled = true }, 100)
@@ -103,15 +103,21 @@ function generateUrlAndGoTo (selected, regexp) {
 
     // org name coms from a label
     regexp = new RegExp(regexp)
-    org = selected.querySelectorAll('.av')[0].innerText.toLowerCase().match(regexp)
+    label  = selected.querySelectorAll('.av')[0]
+    if (label) org = label.innerText.toLowerCase().match(regexp)
 
-    if(org) {
+    // quick action ?!
+    gotoaction = selected.querySelectorAll('.aKS [role="button"]')[0]
+
+    if(gotoaction) {
+      gotoaction.dispatchEvent(fakeEvent('mousedown'))
+    } else if(org) {
       org = org[1]
       repo = title[1]
       issue_no = title[2]
 
       url = "https://github.com/" + org + "/" + repo + "/issues/" + issue_no
-      linkWithUrl(url).dispatchEvent(fakeClick())
+      linkWithUrl(url).dispatchEvent(fakeEvent('click'))
     }
   }
 }
@@ -144,9 +150,9 @@ function processRightCombinationBasedOnShortcut (shortcut, event) {
 }
 
 // .click() doesn't usually work as expected
-function fakeClick () {
+function fakeEvent (event) {
   var click = document.createEvent("MouseEvents")
-  click.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+  click.initMouseEvent(event, true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
   return click
 }
 
@@ -167,7 +173,7 @@ function getVisible (nodeList) {
   if(nodeList.length) {
     var node
     $(nodeList).map(function() {
-      if(typeof node == 'undefined' && (this.offsetTop > 0 || this.offsetLeft > 0)) {
+      if(typeof node == 'undefined' && (this.clientWidth > 0 || this.clientHeight > 0)) {
         node = this
       }
     })
