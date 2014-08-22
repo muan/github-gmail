@@ -98,20 +98,21 @@ function triggerGitHubLink (backgroundOrNot) {
 
 // Go to selected email GitHub thread
 function generateUrlAndGoTo (selected, regexp) {
-  // If the title looks like a GitHub notification email.
-  if( (title = selected.innerText.match(/\[(.*)\]\s.*\s\(\#(\d*)\)/)) ) {
+  gotoaction = selected.querySelectorAll('.aKS [role="button"]')[0]
 
+  if(gotoaction) {
+    // if there's a gotoaction
+    gotoaction.dispatchEvent(fakeEvent('mousedown'))
+
+  } else if( (title = selected.innerText.match(/\[(.*)\]\s.*\s\(\#(\d*)\)/)) ) {
+    // If the title looks like a GitHub notification email.
     // org name coms from a label
     regexp = new RegExp(regexp)
-    label  = selected.querySelectorAll('.av')[0]
-    if (label) org = label.innerText.toLowerCase().match(regexp)
+    label   = selected.querySelectorAll('.av')[0]
 
-    // quick action ?!
-    gotoaction = selected.querySelectorAll('.aKS [role="button"]')[0]
+    if(label) org = label.innerText.toLowerCase().match(regexp)
 
-    if(gotoaction) {
-      gotoaction.dispatchEvent(fakeEvent('mousedown'))
-    } else if(org) {
+    if(org) {
       org = org[1]
       repo = title[1]
       issue_no = title[2]
