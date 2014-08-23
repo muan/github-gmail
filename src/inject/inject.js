@@ -65,12 +65,12 @@ function initOnHashChangeAction(domains) {
 function initShortcuts(shortcut, backgroundShortcut) {
   $(document).on("keydown", function(event) {
     // Shortcut: bind user's combination, if a button exist and event not in a textarea
-    if( processRightCombinationBasedOnShortcut(shortcut, event) && window.idled && $(".github-link:visible")[0] && notAnInput(event.target)) {
+    if( processRightCombinationBasedOnShortcut(shortcut, event) && window.idled && getVisible(document.getElementsByClassName('github-link')) && notAnInput(event.target)) {
       triggerGitHubLink(false)
     }
 
     // Bacground Shortcut: bind user's combination, if a button exist and event not in a textarea
-    if( processRightCombinationBasedOnShortcut(backgroundShortcut, event) && window.idled && $(".github-link:visible")[0] && notAnInput(event.target)) {
+    if( processRightCombinationBasedOnShortcut(backgroundShortcut, event) && window.idled && getVisible(document.getElementsByClassName('github-link')) && notAnInput(event.target)) {
       triggerGitHubLink(true)
     }
   })
@@ -92,7 +92,7 @@ function triggerGitHubLink (backgroundOrNot) {
   window.idled = false
   event = backgroundOrNot ? fakeBackgroundClick() : fakeEvent('click')
 
-  $(".github-link:visible")[0].dispatchEvent(event)
+  getVisible(document.getElementsByClassName('github-link')).dispatchEvent(event)
   setTimeout( function(){ window.idled = true }, 100)
 }
 
