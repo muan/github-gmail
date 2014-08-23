@@ -63,7 +63,7 @@ function initOnHashChangeAction(domains) {
 }
 
 function initShortcuts(shortcut, backgroundShortcut) {
-  $(document).on("keypress", function(event) {
+  $(document).on("keydown", function(event) {
     // Shortcut: bind user's combination, if a button exist and event not in a textarea
     if( processRightCombinationBasedOnShortcut(shortcut, event) && window.idled && $(".github-link:visible")[0] && notAnInput(event.target)) {
       triggerGitHubLink(false)
