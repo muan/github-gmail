@@ -90,7 +90,7 @@ function initListViewShortcut(regexp) {
 function triggerGitHubLink (backgroundOrNot) {
   // avoid link being appended multiple times
   window.idled = false
-  event = backgroundOrNot ? fakeBackgroundClick() : fakeEvent('click')
+  event = backgroundOrNot ? fakeBackgroundClick() : fakeEvent('click', false)
 
   getVisible(document.getElementsByClassName('github-link')).dispatchEvent(event)
   setTimeout( function(){ window.idled = true }, 100)
@@ -102,7 +102,7 @@ function generateUrlAndGoTo (selected, regexp) {
 
   if(gotoaction) {
     // if there's a gotoaction
-    gotoaction.dispatchEvent(fakeEvent('mousedown'))
+    gotoaction.dispatchEvent(fakeEvent('mousedown', true))
 
   } else if( (title = selected.innerText.match(/\[(.*)\]\s.*\s\(\#(\d*)\)/)) ) {
     // If the title looks like a GitHub notification email.
@@ -118,7 +118,7 @@ function generateUrlAndGoTo (selected, regexp) {
       issue_no = title[2]
 
       url = "https://github.com/" + org + "/" + repo + "/issues/" + issue_no
-      linkWithUrl(url).dispatchEvent(fakeEvent('click'))
+      linkWithUrl(url).dispatchEvent(fakeEvent('click', false))
     }
   }
 }
@@ -151,15 +151,13 @@ function processRightCombinationBasedOnShortcut (shortcut, event) {
 }
 
 // .click() doesn't usually work as expected
-function fakeEvent (event) {
-  var click = document.createEvent("MouseEvents")
-  click.initMouseEvent(event, true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+function fakeEvent (event, bubbles) {
+  var click = new MouseEvent(event, {bubbles: bubbles})
   return click
 }
 
 function fakeBackgroundClick () {
-  var click = document.createEvent("MouseEvents")
-  click.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, true, 0, null)
+  var click = new MouseEvent('click', {metaKey: true})
   return click
 }
 
