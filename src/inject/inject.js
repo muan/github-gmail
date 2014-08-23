@@ -144,7 +144,7 @@ function processRightCombinationBasedOnShortcut (shortcut, event) {
   })
 
   // If there is a keyCode left, add that to the mix.
-  if(combination.length) trueOrFalse.push(event.keyCode == combination[0])
+  if(combination.length) trueOrFalse.push(event.keyCode.toString() == combination[0])
 
   // Evaluate trueOrFalse by looking for the existence of False
   return trueOrFalse = (trueOrFalse.indexOf(false) < 0)
