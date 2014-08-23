@@ -1,0 +1,9 @@
+{
+  "name": "github-gmail",
+  "title": "GitHub Notification Helper for Gmail",
+  "id": "jid1-Zf83KbzewcxGfg",
+  "description": "Add links to GitHub threads and shortcuts to your Gmail interface.",
+  "author": "Mu-An Chiou",
+  "license": "MIT",
+  "version": "0.1"
+}
