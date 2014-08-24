@@ -1,9 +1,35 @@
 {
   "name": "github-gmail",
-  "title": "GitHub Notification Helper for Gmail",
+  "title": "GitHub for Gmail",
+  "fullName": "GitHub Notification Helper for Gmail",
   "id": "jid1-Zf83KbzewcxGfg",
   "description": "Add links to GitHub threads and shortcuts to your Gmail interface.",
   "author": "Mu-An Chiou",
+  "preferences": [{
+    "name": "Domains",
+    "title": "Domains",
+    "description": "Specify GitHub enterprise domain, or other domains you'd like to grab links for. There's no need to add github.com, protocol is also not required unless you'd like to be explicit.",
+    "type": "string",
+    "value": ""
+  },{
+    "name": "Shortcut",
+    "title": "Shortcut",
+    "description": "The shortcut that triggers button clicking on the mail view.",
+    "type": "string",
+    "value": "shift + 71"
+  },{
+    "name": "backgroundShortcut",
+    "title": "backgroundShortcut",
+    "type": "string",
+    "value": "shift + 66",
+    "hidden": true
+  },{
+    "name": "RegExp",
+    "title": "RegExp",
+    "description": "Custom Regular Expression for matching labeled Organization name.",
+    "type": "string",
+    "value": "^\\((.+)\\)"
+  }],
   "license": "MIT",
   "version": "0.1"
 }

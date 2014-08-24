@@ -1,13 +1,8 @@
-var settings = {
-  "Domains": "",
-  "Shortcut": "shift + 71",
-  "BackgroundShortcut": "shift + 66",
-  "RegExp" : "^\\((.+)\\)"
-}
-
-initOnHashChangeAction(settings['Domains'])
-initShortcuts(settings['Shortcut'], settings['BackgroundShortcut'])
-initListViewShortcut(settings['RegExp'])
+self.port.on("prefload", function(prefs) {
+  initOnHashChangeAction(prefs['Domains'])
+  initShortcuts(prefs['Shortcut'], prefs['backgroundShortcut'])
+  initListViewShortcut(prefs['RegExp'])
+})
 
 // Ported from the Chrome extension
 // Avoid editing the following script to prevent divergence
