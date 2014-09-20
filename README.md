@@ -21,7 +21,7 @@ With those, you will be able to open a selected GitHub notification email thread
 
 #### Action button
 
-![action button in list view](https://cloud.githubusercontent.com/assets/1153134/4344148/eeb27f66-407a-11e4-94b8-d180055b7c54.png)
+![action button in list view](https://cloud.githubusercontent.com/assets/1153134/4344159/52248e7c-407b-11e4-9c80-fdc9f8a9f8cc.png)
 
 #### Label
 
@@ -76,6 +76,8 @@ Customize the keyboard shortcut that triggers the `View on GitHub` button. Chang
 ### List View Regular Expression
 
 Custom Regular Expression for matching labeled Organization name. Eg. `/^\((.+)\)/` matches `muan` in `(muan)\github-gmail`, and will be use to build the url: `https://github.com/`**`muan`**`/github-gmail/issues`.
+
+This is **not needed** if all you need is triggering the action button. 
 
 ![image](https://f.cloud.github.com/assets/1153134/2457127/ac41d204-af2e-11e3-9271-328aeb7a11bf.png)
 
