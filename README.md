@@ -10,14 +10,14 @@ Open your GitHub notifications using a shortcut (default to `shift + g`, or `shi
 
 ![image](https://f.cloud.github.com/assets/1153134/1699454/20634378-5f9f-11e3-999c-c0c5e3e96684.png)
 
-### List View Shortcut (*Require setup)
+### List View Shortcut
 
-You have to have
+The shortcut is `ctrl + return(enter)`, currently non-customisable. It will trigger one of these two when an email is selected using key navigation(when the blue bar appears):
 
-1. Gmail shortcut mode enabled
-2. Nothing else, when triggering [action buttons](https://github.com/blog/1891-view-issue-pull-request-buttons-for-gmail), or when there isn't an action button, an organization named label matching the Regular Expression (default to `^\((.+)\)`).
+1. [Gmail action buttons](https://github.com/blog/1891-view-issue-pull-request-buttons-for-gmail).
+2. A GitHub Issue/ PR that has an organization named label matching the Regular Expression (default to `^\((.+)\)`).
 
-With those, you will be able to open a selected GitHub notification email thread using `ctrl + return(enter)` in a list view where there is an action button or a label.
+The function will only look for a label if there is no action buttons.
 
 #### Action button
 
