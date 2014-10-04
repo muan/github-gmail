@@ -141,7 +141,11 @@ function processRightCombinationBasedOnShortcut (shortcut, event) {
   keys.map(function(key) {
     index = combination.indexOf(key)
     if(index >= 0) {
-      trueOrFalse.push( eval('event.' + key + 'Key' ) )
+      if(key == "shift") trueOrFalse.push(event.shiftKey)
+      if(key == "alt")   trueOrFalse.push(event.altKey)
+      if(key == "meta")  trueOrFalse.push(event.metaKey)
+      if(key == "crtl")  trueOrFalse.push(event.ctrlKey)
+
       combination.splice(index, 1)
     }
   })
