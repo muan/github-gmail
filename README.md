@@ -1,12 +1,12 @@
 # GitHub :octocat: :on: :love_letter: Gmail
 
-This is a **Chrome Extension** that allows you to open threads in GitHub notification emails with a shortcut. :sparkles:
+This is a **Chrome and Firefox Extension** that allows you to open threads in GitHub notification emails with a shortcut. :sparkles:
 
 ## Features
 
 ### Mail View Shortcut
 
-Open your GitHub notifications using a shortcut (default to `shift + g`, or `shift + b` to open in the background), or this button in mail view:
+Open your GitHub notifications using a shortcut (default to `shift + g`, or `shift + b` to open in the background in Chrome), or this button in mail view:
 
 ![image](https://f.cloud.github.com/assets/1153134/1699454/20634378-5f9f-11e3-999c-c0c5e3e96684.png)
 
@@ -63,7 +63,7 @@ Customize the keyboard shortcut that triggers the `View on GitHub` button. Chang
 
 ![image](https://f.cloud.github.com/assets/1153134/2457119/3a485f38-af2e-11e3-978a-ece296676337.png)
 
-#### To open a new window in the background (`shift + b`):
+#### To open a new window in the background (`shift + b`) – Chrome only:
 
 ![image](https://f.cloud.github.com/assets/1153134/2466997/e381dbc2-afb7-11e3-9470-bc722133a265.png)
 
