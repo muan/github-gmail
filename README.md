@@ -1,6 +1,6 @@
 # GitHub :octocat: :on: :love_letter: Gmail
 
-This is a **Chrome and Firefox Extension** that allows you to open threads in GitHub notification emails with a shortcut. :sparkles:
+This is a **Chrome, Firefox and Safari Extension** that allows you to open threads in GitHub notification emails with a shortcut. :sparkles:
 
 ## Features
 
@@ -83,7 +83,8 @@ This is **not needed** if all you need is triggering the action button.
 ## Code
 
 Chrome: `chrome/src/inject/inject.js`.<br>
-Firefox: `firefox/data/index.js`.
+Firefox: `firefox/data/index.js`.<br>
+Safar: `safari/github-gmail.safariextension/inject.js`.
 
 ## The End
 
