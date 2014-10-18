@@ -27,7 +27,6 @@
 		<dict>
 			<key>Start</key>
 			<array>
-				<string>jquery.js</string>
 				<string>inject.js</string>
 			</array>
 		</dict>
