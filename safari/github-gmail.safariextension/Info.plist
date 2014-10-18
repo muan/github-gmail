@@ -9,7 +9,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>GitHub Notification Helper for Gmail</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.github-gmail</string>
+	<string>com.muan.github-gmail</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
