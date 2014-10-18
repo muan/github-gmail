@@ -17,13 +17,17 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>Chrome</key>
-	<dict/>
+	<dict>
+		<key>Global Page</key>
+		<string>background.html</string>
+	</dict>
 	<key>Content</key>
 	<dict>
 		<key>Scripts</key>
 		<dict>
 			<key>Start</key>
 			<array>
+				<string>jquery.js</string>
 				<string>inject.js</string>
 			</array>
 		</dict>
