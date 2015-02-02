@@ -12,12 +12,12 @@ Open your GitHub notifications using a shortcut (default to `shift + g`, or `shi
 
 #### List View Shortcut
 
-The shortcut is `ctrl + return(enter)`, currently non-customisable. It will trigger one of these two when an email is selected using key navigation(when the blue bar appears):
+The shortcut is `ctrl + return(enter)`, currently non-customizable. It will trigger one of these two when an email is selected using key navigation(when the blue bar appears):
 
 1. [Gmail action buttons](https://github.com/blog/1891-view-issue-pull-request-buttons-for-gmail).
 2. A GitHub Issue/ PR that has an organization named label matching the Regular Expression (default to `^\((.+)\)`).
 
-The function will only look for a label if there is no action buttons.
+The function will only look for a label if there are no action buttons.
 
 ##### Action button
 
