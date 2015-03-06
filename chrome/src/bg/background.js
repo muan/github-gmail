@@ -11,8 +11,11 @@ request.onload = function() {
 
   chrome.extension.onMessage.addListener(
     function(request, sender, sendMessage) {
-      sendMessage(data)
+      if(request.url) {
+        chrome.tabs.create(request)
+      } else {
+        sendMessage(data)
+      }
     }
   )
 }
-

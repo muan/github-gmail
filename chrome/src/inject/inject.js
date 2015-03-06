@@ -90,9 +90,9 @@ function initListViewShortcut(regexp) {
 function triggerGitHubLink (backgroundOrNot) {
   // avoid link being appended multiple times
   window.idled = false
-  event = backgroundOrNot ? fakeBackgroundClick() : fakeEvent('click', false)
+  var link = getVisible(document.getElementsByClassName('github-link'))
+  chrome.extension.sendMessage({url: link.href, active: !backgroundOrNot})
 
-  getVisible(document.getElementsByClassName('github-link')).dispatchEvent(event)
   setTimeout( function(){ window.idled = true }, 100)
 }
 
@@ -157,11 +157,6 @@ function processRightCombinationBasedOnShortcut (shortcut, event) {
 // .click() doesn't usually work as expected
 function fakeEvent (event, bubbles) {
   var click = new MouseEvent(event, {bubbles: bubbles})
-  return click
-}
-
-function fakeBackgroundClick () {
-  var click = new MouseEvent('click', {metaKey: true})
   return click
 }
 
