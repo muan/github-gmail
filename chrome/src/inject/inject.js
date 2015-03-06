@@ -118,7 +118,7 @@ function generateUrlAndGoTo (selected, regexp) {
       issue_no = title[2]
 
       url = "https://github.com/" + org + "/" + repo + "/issues/" + issue_no
-      linkWithUrl(url).dispatchEvent(fakeEvent('click', false))
+      chrome.extension.sendMessage({url: url)
     }
   }
 }
