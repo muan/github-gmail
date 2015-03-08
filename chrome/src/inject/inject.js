@@ -3,7 +3,12 @@ chrome.extension.sendMessage({}, function(settings) {
   initOnHashChangeAction(settings['Domains'])
   initShortcuts(settings['Shortcut'], settings['BackgroundShortcut'])
   initListViewShortcut(settings['RegExp'])
+  initForInbox()
 })
+
+function initForInbox() {
+  window.idled = true
+}
 
 function initOnHashChangeAction(domains) {
   allDomains = "//github.com,"
@@ -65,6 +70,8 @@ function initOnHashChangeAction(domains) {
 function initShortcuts(shortcut, backgroundShortcut) {
   $(document).on("keydown", function(event) {
     // Shortcut: bind user's combination, if a button exist and event not in a textarea
+    $('.gE').removeClass('github-link')
+    $('.scroll-list-item-open .gE, .scroll-list-item-highlighted .gE').addClass('github-link')
     if( processRightCombinationBasedOnShortcut(shortcut, event) && window.idled && getVisible(document.getElementsByClassName('github-link')) && notAnInput(event.target)) {
       triggerGitHubLink(false)
     }
@@ -170,11 +177,12 @@ function linkWithUrl (url) {
 function getVisible (nodeList) {
   if(nodeList.length) {
     var node
-    $(nodeList).map(function() {
-      if(typeof node == 'undefined' && (this.clientWidth > 0 || this.clientHeight > 0)) {
-        node = this
+    for(var i=0; i < nodeList.length; i++) {
+      if(typeof node === 'undefined' && (nodeList[i].offsetHeight > 0 || nodeList[i].clientWidth > 0 || nodeList[i].clientHeight > 0)) {
+        node = nodeList[i]
+        break
       }
-    })
+    }
     return node
   }
 }

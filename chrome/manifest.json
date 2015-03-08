@@ -20,7 +20,8 @@
   "content_scripts": [
     {
       "matches": [
-        "https://mail.google.com/*"
+        "https://mail.google.com/*",
+        "https://inbox.google.com/*"
       ],
       "css": [
         "src/inject/inject.css"
@@ -28,7 +29,8 @@
     },
     {
       "matches": [
-        "https://mail.google.com/*"
+        "https://mail.google.com/*",
+        "https://inbox.google.com/*"
       ],
       "js": [
         "js/jquery.js",
