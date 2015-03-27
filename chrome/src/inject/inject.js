@@ -35,8 +35,8 @@ function initOnHashChangeAction(domains) {
 
       if( mail_body ) {
 
-        github_links = mail_body.querySelectorAll(selectors)
-        github_links = reject_unwanted_paths(github_links)
+        all_github_links = mail_body.querySelectorAll(selectors)
+        github_links = reject_unwanted_paths(all_github_links)
 
         // Avoid multple buttons
         $('.github-link').remove()
@@ -52,6 +52,8 @@ function initOnHashChangeAction(domains) {
 
           // automatic subscription email
           if( $(mail_body).find(':contains("automatically subscribed")').length) {
+            url = get_unsubscribe_path(all_github_links)[0].href
+
             link = $("<a class='github-link T-I J-J5-Ji lS T-I-ax7 ar7' href='#'>Unwatch on GitHub</a>")
             $(".iH > div").append(link)
 
@@ -221,5 +223,11 @@ function reject_unwanted_paths (links) {
   regexp = new RegExp(paths.join('|'))
   return $(links).filter(function() {
     if(!this.href.match(regexp)) return this
+  })
+}
+
+function get_unsubscribe_path(links) {
+  return $(links).filter(function() {
+    if( this.href.search('unsubscribe_via_email') != -1 ) return this
   })
 }
