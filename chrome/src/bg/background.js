@@ -36,7 +36,11 @@ request.onload = function() {
     // avoid conflict with other listner
     if(request.unwatchUrl) {
         chrome.tabs.create({url: request.unwatchUrl, active: false}, function(tab) {
-          setTimeout(function() { chrome.tabs.remove(tab.id) }, 1500);
+          chrome.tabs.executeScript(tab.id, {file: 'js/jquery.js'}, function() {
+            chrome.tabs.executeScript(tab.id, {file: 'js/unwatch.js'}, function() {
+              chrome.tabs.remove(tab.id)
+            })
+          })
         })
       }
     }
