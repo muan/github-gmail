@@ -148,7 +148,7 @@ function processRightCombinationBasedOnShortcut (shortcut, event) {
       if(key == "shift") trueOrFalse.push(event.shiftKey)
       if(key == "alt")   trueOrFalse.push(event.altKey)
       if(key == "meta")  trueOrFalse.push(event.metaKey)
-      if(key == "crtl")  trueOrFalse.push(event.ctrlKey)
+      if(key == "ctrl")  trueOrFalse.push(event.ctrlKey)
 
       combination.splice(index, 1)
     }
