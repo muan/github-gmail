@@ -56,7 +56,7 @@ There are 3 preference settings:
 
 #### Custom Domains (for GitHub Enterprise)
 
-If you are using GitHub enterprise and have a custom domain, you can set it in the extension options page.
+If you are using GitHub Enterprise and have a custom domain, you can set it in the extension options page.
 
 ![domain option](https://f.cloud.github.com/assets/1153134/2075910/2f9b1f70-8d97-11e3-9798-9afcfb550e22.png)
 
