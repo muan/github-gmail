@@ -1,4 +1,4 @@
-# GitHub :octocat: :on: :love_letter: Gmail
+# Helper for GitHub notifications in Gmail
 
 This is a **Chrome and Firefox Extension** that allows you to open threads in GitHub notification emails with a shortcut. :sparkles:
 
