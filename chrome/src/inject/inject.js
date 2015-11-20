@@ -49,6 +49,18 @@ function initOnHashChangeAction(domains) {
           link = $("<a class='github-link T-I J-J5-Ji lS T-I-ax7 ar7' target='_blank' href='"+ url +"'>Visit Thread on GitHub</a>")
 
           $(".iH > div").append(link)
+
+          // automatic subscription email
+          if( $(mail_body).find(':contains("automatically subscribed")').length) {
+            link = $("<a class='github-link T-I J-J5-Ji lS T-I-ax7 ar7' href='#'>Unwatch on GitHub</a>")
+            $(".iH > div").append(link)
+
+            link.on('click', function() {
+              // opens a new tab and unwatches the repo
+              chrome.runtime.sendMessage({unwatchUrl: url}, function(response){})
+            })
+          }
+
           window.idled = true
 
           document.getElementsByClassName('github-link')[0].addEventListener("DOMNodeRemovedFromDocument", function (ev) {

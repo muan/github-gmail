@@ -30,4 +30,20 @@ request.onload = function() {
       }
     }
   )
+
+  chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    // avoid conflict with other listner
+    if(request.unwatchUrl) {
+        chrome.tabs.create({url: request.unwatchUrl, active: false}, function(tab) {
+          chrome.tabs.executeScript(tab.id, {file: 'js/jquery.js'}, function() {
+            chrome.tabs.executeScript(tab.id, {file: 'js/unwatch.js'}, function() {
+              chrome.tabs.remove(tab.id)
+            })
+          })
+        })
+      }
+    }
+  )
+
 }
