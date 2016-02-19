@@ -23,13 +23,7 @@
     "type": "string",
     "value": "shift + 66",
     "hidden": true
-  },{
-    "name": "RegExp",
-    "title": "RegExp",
-    "description": "Custom Regular Expression for matching labeled Organization name.",
-    "type": "string",
-    "value": "^\\((.+)\\)"
   }],
   "license": "MIT",
-  "version": "0.1.1"
+  "version": "0.1.2"
 }

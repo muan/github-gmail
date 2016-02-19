@@ -2,7 +2,7 @@
 chrome.extension.sendMessage({}, function(settings) {
   initOnHashChangeAction(settings['Domains'])
   initShortcuts(settings['Shortcut'], settings['BackgroundShortcut'])
-  initListViewShortcut(settings['RegExp'])
+  initListViewShortcut()
   initForInbox()
 })
 
@@ -88,7 +88,7 @@ function initListViewShortcut(regexp) {
     // Shortcut: bind ctrl + return
     selected = getVisible(document.querySelectorAll('.zA[tabindex="0"]'))
     if( event.ctrlKey && event.keyCode == 13 && selected ) {
-      generateUrlAndGoTo(selected, regexp)
+      generateUrlAndGoTo(selected)
     }
   })
 }
@@ -104,29 +104,11 @@ function triggerGitHubLink (backgroundOrNot) {
 }
 
 // Go to selected email GitHub thread
-function generateUrlAndGoTo (selected, regexp) {
+function generateUrlAndGoTo (selected) {
   gotoaction = selected.querySelectorAll('.aKS [role="button"]')[0]
 
   if(gotoaction) {
-    // if there's a gotoaction
     gotoaction.dispatchEvent(fakeEvent('mousedown', true))
-
-  } else if( (title = selected.innerText.match(/\[(.*)\]\s.*\s\(\#(\d*)\)/)) ) {
-    // If the title looks like a GitHub notification email.
-    // org name coms from a label
-    regexp = new RegExp(regexp)
-    label   = selected.querySelectorAll('.av')[0]
-
-    if(label) org = label.innerText.toLowerCase().match(regexp)
-
-    if(org) {
-      org = org[1]
-      repo = title[1]
-      issue_no = title[2]
-
-      url = "https://github.com/" + org + "/" + repo + "/issues/" + issue_no
-      chrome.extension.sendMessage({url: url})
-    }
   }
 }
 
@@ -201,12 +183,11 @@ function clearAllIntervals () {
 // Reject unsubscribe, subscription and verification management paths
 // Make sure the keywords((un)subscribe) can still be repository names
 function reject_unwanted_paths (links) {
-  paths = ['\/\/[^\/]*\/mailers\/unsubscribe\?',
-           '\/\/[^\/]*\/.*\/.*\/unsubscribe_via_email',
-           '\/\/[^\/]*\/.*\/.*\/subscription$',
-           '\/\/[^\/]*\/.*\/.*\/emails\/.*\/confirm_verification\/.*'
-  ]
-  regexp = new RegExp(paths.join('|'))
+  var paths = ['\/\/[^\/]*\/mailers\/unsubscribe\?',
+               '\/\/[^\/]*\/.*\/.*\/unsubscribe_via_email',
+               '\/\/[^\/]*\/.*\/.*\/subscription$',
+               '\/\/[^\/]*\/.*\/.*\/emails\/.*\/confirm_verification\/.*']
+  var regexp = new RegExp(paths.join('|'))
   return $(links).filter(function() {
     if(!this.href.match(regexp)) return this
   })
