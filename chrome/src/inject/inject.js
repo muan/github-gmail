@@ -37,12 +37,11 @@ function initOnHashChangeAction(domains) {
         var github_links = reject_unwanted_paths(mail_body.querySelectorAll(selectors))
 
         // Avoid multple buttons
-        Array.prototype.forEach.call(document.querySelectorAll('.gitbhub-link'), function (ele) {
+        Array.prototype.forEach.call(document.querySelectorAll('.github-link'), function (ele) {
           ele.remove()
         })
 
         if (github_links.length ) {
-
           var url = github_links[github_links.length-1].href
           // Go to thread instead of .diff link (pull request notifications)
           url = url.match(/\.diff/) ? url.slice(0, url.length-5) : url
