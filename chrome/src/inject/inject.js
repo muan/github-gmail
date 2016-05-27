@@ -43,6 +43,11 @@ function initOnHashChangeAction(domains) {
 
         if (github_links.length ) {
           var url = github_links[github_links.length-1].href
+
+          // skip notification unsubscribe links:
+          if (url.match('notifications/unsubscribe')) {
+            url = github_links[github_links.length-2].href
+          }
           // Go to thread instead of .diff link (pull request notifications)
           url = url.match(/\.diff/) ? url.slice(0, url.length-5) : url
           var link = document.createElement('a')
