@@ -2,16 +2,16 @@
   "Domains" : {
     "description": "Specify GitHub enterprise domain, or other domains you'd like to grab links for. There's no need to add github.com, protocol is also not required unless you'd like to be explicit.",
     "val": "",
-    "hint": "( comma separated if multiple )"
+    "hint": "(comma separated if multiple)"
   },
   "Shortcut" : {
     "description": "The shortcut that triggers button clicking on the mail view.",
     "val": "shift + 71",
-    "hint": " ( press shortcut in the input field )"
+    "hint": " (press shortcut in the input field)"
   },
   "BackgroundShortcut" : {
     "description": "The shortcut that triggers button clicking on the mail view, opens the link in the background.",
     "val": "shift + 66",
-    "hint": " ( press shortcut in the input field )"
+    "hint": " (press shortcut in the input field)"
   }
 }
