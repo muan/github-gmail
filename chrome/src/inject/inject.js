@@ -37,17 +37,30 @@ function initOnHashChangeAction(domains) {
         var github_links = reject_unwanted_paths(mail_body.querySelectorAll(selectors))
 
         // Avoid multple buttons
-        Array.prototype.forEach.call(document.querySelectorAll('.github-link'), function (ele) {
+        Array.prototype.forEach.call(document.querySelectorAll('.github-link, .github-mute-button'), function (ele) {
           ele.remove()
         })
 
         if (github_links.length ) {
           var url = github_links[github_links.length-1].href
+          var muteLink
 
           // skip notification unsubscribe links:
           if (url.match('notifications/unsubscribe')) {
+            var muteURL = url
             url = github_links[github_links.length-2].href
+            muteLink = document.createElement('button')
+            muteLink.type = 'button'
+            muteLink.className = 'ithub-mute-button T-I J-J5-Ji lS T-I-ax7 ar7'
+            muteLink.innerText = 'Mute thread'
+            muteLink.addEventListener('click', function () {
+              fetch(muteURL, {mode: 'no-cors'}).then(function () {
+                muteLink.innerText = 'Muted!'
+                muteLink.disabled = 'disabled'
+              })
+            })
           }
+
           // Go to thread instead of .diff link (pull request notifications)
           url = url.match(/\.diff/) ? url.slice(0, url.length-5) : url
           var link = document.createElement('a')
@@ -57,6 +70,11 @@ function initOnHashChangeAction(domains) {
           link.innerText = 'Visit Thread on GitHub'
 
           document.querySelector('.iH > div').appendChild(link)
+
+          if (muteLink) {
+            document.querySelector('.iH > div').appendChild(muteLink)
+          }
+
           window.idled = true
 
           document.getElementsByClassName('github-link')[0].addEventListener("DOMNodeRemovedFromDocument", function (ev) {
