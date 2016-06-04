@@ -1,1 +1,11 @@
-{}
+{
+	"appName": {
+		"message": "Helper for GitHub notifications in Gmail"
+	},
+	"appShortName": {
+		"message": "helpergithubgmail"
+	},
+	"appDescription": {
+		"message": "Add links to GitHub threads and shortcuts to your Gmail interface."
+	}
+}
