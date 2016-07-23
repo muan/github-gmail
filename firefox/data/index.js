@@ -73,12 +73,12 @@ function initOnHashChangeAction(domains) {
 
 function initShortcuts(shortcut, backgroundShortcut) {
   document.addEventListener('keydown', function(event) {
-    // Shortcut: bind user's combination, if a button exist and event not in a textarea
+    // Shortcut: bind user's combination, if a button exists and the event is not in a textarea
     if( processRightCombinationBasedOnShortcut(shortcut, event) && window.idled && getVisible(document.getElementsByClassName('github-link')) && notAnInput(event.target)) {
       triggerGitHubLink(false)
     }
 
-    // Bacground Shortcut: bind user's combination, if a button exist and event not in a textarea
+    // Background Shortcut: bind user's combination, if a button exists and the event is not in a textarea
     if( processRightCombinationBasedOnShortcut(backgroundShortcut, event) && window.idled && getVisible(document.getElementsByClassName('github-link')) && notAnInput(event.target)) {
       triggerGitHubLink(true)
     }
@@ -188,7 +188,7 @@ function clearAllIntervals () {
 }
 
 // Reject unsubscribe, subscription and verification management paths
-// Make sure the keywords((un)subscribe) can still be repository names
+// Make sure the keywords ((un)subscribe) can still be repository names
 function reject_unwanted_paths (links) {
   var paths = ['\/\/[^\/]*\/mailers\/unsubscribe\?',
                '\/\/[^\/]*\/.*\/.*\/unsubscribe_via_email',

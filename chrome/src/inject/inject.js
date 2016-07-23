@@ -1,4 +1,4 @@
-// Retriving user options
+// Retrieving user options
 chrome.extension.sendMessage({}, function (settings) {
   initOnHashChangeAction(settings['Domains'])
   initShortcuts(settings['Shortcut'], settings['BackgroundShortcut'], settings['MuteShortcut'])
@@ -37,7 +37,7 @@ function initOnHashChangeAction(domains) {
       if (mail_body ) {
         var github_links = reject_unwanted_paths(mail_body.querySelectorAll(selectors))
 
-        // Avoid multple buttons
+        // Avoid multiple buttons
         Array.prototype.forEach.call(document.querySelectorAll('.github-link, .github-mute-button'), function (ele) {
           ele.remove()
         })
@@ -97,7 +97,7 @@ function initOnHashChangeAction(domains) {
 
 function initShortcuts(shortcut, backgroundShortcut, muteShortcut) {
   document.addEventListener('keydown', function (event) {
-    // Shortcut: bind user's combination, if a button exist and event not in a textarea
+    // Shortcut: bind user's combination, if a button exists and the event is not in a textarea
     if (document.querySelector('.gE')) {
       document.querySelector('.gE').classList.remove('github-link')
     }
@@ -110,12 +110,12 @@ function initShortcuts(shortcut, backgroundShortcut, muteShortcut) {
       triggerGitHubLink(false)
     }
 
-    // Bacground Shortcut: bind user's combination, if a button exist and event not in a textarea
+    // Background Shortcut: bind user's combination, if a button exists and the event is not in a textarea
     if (processRightCombinationBasedOnShortcut(backgroundShortcut, event) && window.idled && getVisible(document.getElementsByClassName('github-link')) && notAnInput(event.target)) {
       triggerGitHubLink(true)
     }
 
-    // Mute Shortcut: bind user's combination, if a button exist and event not in a textarea
+    // Mute Shortcut: bind user's combination, if a button exists and the event is not in a textarea
     if (processRightCombinationBasedOnShortcut(muteShortcut, event) && window.idled && getVisible(document.getElementsByClassName('github-mute-button')) && notAnInput(event.target)) {
       getVisible(document.getElementsByClassName('github-mute-button')).click()
     }
