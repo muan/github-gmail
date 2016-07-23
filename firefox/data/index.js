@@ -1,6 +1,8 @@
-self.port.on("prefload", function(prefs) {
-  initOnHashChangeAction(prefs['Domains'])
-  initShortcuts(prefs['Shortcut'], prefs['backgroundShortcut'])
+// Retrieving user options
+self.port.on("prefload", function(settings) {
+  initOnHashChangeAction(settings['Domains'])
+  initShortcuts(settings['Shortcut'], settings['backgroundShortcut'])
+
   initListViewShortcut()
 })
 
@@ -9,11 +11,11 @@ self.port.on("prefload", function(prefs) {
 //
 
 function initOnHashChangeAction(domains) {
-  allDomains = "//github.com,"
+  var allDomains = '//github.com,'
   if(domains) allDomains += domains
 
   // Take string -> make array -> make queries -> avoid nil -> join queries to string
-  selectors = allDomains.replace(/\s/, '').split(',').map(function (name) {
+  var selectors = allDomains.replace(/\s/, '').split(',').map(function (name) {
     if (name.length) return (".AO [href*='" + name + "']")
   }).filter(function(name) { return name }).join(", ")
 
@@ -28,23 +30,20 @@ function initOnHashChangeAction(domains) {
     // In case previous intervals got interrupted
     clearAllIntervals()
 
-    retryForActiveMailBody = setInterval(function() {
-      mail_body = $('.nH.hx').filter(function() { return this.clientHeight != 0 })[0]
+    var retryForActiveMailBody = setInterval(function() {
+      var mail_body = $('.nH.hx').filter(function() { return this.clientHeight != 0 })[0]
 
-      if( mail_body ) {
-
-        github_links = mail_body.querySelectorAll(selectors)
-        github_links = reject_unwanted_paths(github_links)
+      if(mail_body ) {
+        var github_links = reject_unwanted_paths(mail_body.querySelectorAll(selectors))
 
         // Avoid multple buttons
         $('.github-link').remove()
 
         if( github_links.length ) {
-
-          url = github_links[github_links.length-1].href
+          var url = github_links[github_links.length-1].href
           // Go to thread instead of .diff link (pull request notifications)
           url = url.match(/\.diff/) ? url.slice(0, url.length-5) : url
-          link = $("<a class='github-link T-I J-J5-Ji lS T-I-ax7 ar7' target='_blank' href='"+ url +"'>Visit Thread on GitHub</a>")
+          var link = $("<a class='github-link T-I J-J5-Ji lS T-I-ax7 ar7' target='_blank' href='"+ url +"'>Visit Thread on GitHub</a>")
 
           $(".iH > div").append(link)
           window.idled = true
@@ -82,7 +81,7 @@ function initShortcuts(shortcut, backgroundShortcut) {
 function initListViewShortcut() {
   $(document).on("keypress", function(event) {
     // Shortcut: bind ctrl + return
-    selected = getVisible(document.querySelectorAll('.zA[tabindex="0"]'))
+    var selected = getVisible(document.querySelectorAll('.zA[tabindex="0"]'))
     if( event.ctrlKey && event.keyCode == 13 && selected ) {
       generateUrlAndGoTo(selected)
     }
@@ -101,7 +100,7 @@ function triggerGitHubLink (backgroundOrNot) {
 
 // Go to selected email GitHub thread
 function generateUrlAndGoTo (selected) {
-  gotoaction = selected.querySelectorAll('.aKS [role="button"]')[0]
+  var gotoaction = selected.querySelectorAll('.aKS [role="button"]')[0]
 
   if(gotoaction) {
     gotoaction.dispatchEvent(fakeEvent('mousedown', true))
