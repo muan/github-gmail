@@ -117,7 +117,7 @@ function initShortcuts(shortcut, backgroundShortcut, muteShortcut) {
 
     // Mute Shortcut: bind user's combination, if a button exists and the event is not in a textarea
     if (processRightCombinationBasedOnShortcut(muteShortcut, event) && window.idled && getVisible(document.getElementsByClassName('github-mute-button')) && notAnInput(event.target)) {
-      getVisible(document.getElementsByClassName('github-mute-button')).click()
+      triggerGitHubLink(false, 'github-mute-button')
     }
   })
 }
@@ -133,10 +133,13 @@ function initListViewShortcut(regexp) {
 }
 
 // Trigger the appended link in mail view
-function triggerGitHubLink (backgroundOrNot) {
+function triggerGitHubLink (backgroundOrNot, className) {
+  if (typeof className === 'undefined') {
+    className = 'github-link'
+  }
   // avoid link being appended multiple times
   window.idled = false
-  var link = getVisible(document.getElementsByClassName('github-link'))
+  var link = getVisible(document.getElementsByClassName(className))
   chrome.extension.sendMessage({url: link.href, active: !backgroundOrNot})
 
   setTimeout( function (){ window.idled = true }, 100)
