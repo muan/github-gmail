@@ -122,7 +122,7 @@ function initShortcuts(shortcut, backgroundShortcut, muteShortcut) {
   })
 }
 
-function initListViewShortcut(regexp) {
+function initListViewShortcut() {
   document.addEventListener('keypress', function (event) {
     // Shortcut: bind ctrl + return
     var selected = getVisible(document.querySelectorAll('.zA[tabindex="0"]'))
