@@ -1,7 +1,7 @@
 // Retrieving user options
 self.port.on("prefload", function(settings) {
   initOnHashChangeAction(settings['Domains'])
-  initShortcuts(settings['Shortcut'], settings['backgroundShortcut'])
+  initShortcuts(settings['Shortcut'], settings['backgroundShortcut'], settings['MuteShortcut'])
 
   initListViewShortcut()
   initForInbox()
@@ -48,6 +48,25 @@ function initOnHashChangeAction(domains) {
 
         if( github_links.length ) {
           var url = github_links[github_links.length-1].href
+          var muteLink
+
+          // skip notification unsubscribe links:
+          if (url.match('notifications/unsubscribe')) {
+            var muteURL = url
+            url = github_links[github_links.length-2].href
+            muteLink = document.createElement('button')
+            muteLink.type = 'button'
+            muteLink.className = 'github-mute-button T-I J-J5-Ji lS T-I-ax7 ar7'
+            muteLink.innerText = 'Mute thread'
+            muteLink.addEventListener('click', function () {
+              muteLink.innerHTML = '&ctdot;'
+              fetch(muteURL, {mode: 'no-cors'}).then(function () {
+                muteLink.innerText = 'Muted!'
+                muteLink.disabled = 'disabled'
+              })
+            })
+          }
+
           // Go to thread instead of .diff link (pull request notifications)
           url = url.match(/\.diff/) ? url.slice(0, url.length-5) : url
           var link = document.createElement('a')
@@ -57,6 +76,10 @@ function initOnHashChangeAction(domains) {
           link.innerText = 'Visit Thread on GitHub'
 
           document.querySelector('.iH > div').appendChild(link)
+
+          if (muteLink) {
+            document.querySelector('.iH > div').appendChild(muteLink)
+          }
 
           window.idled = true
 
@@ -76,7 +99,7 @@ function initOnHashChangeAction(domains) {
   }
 }
 
-function initShortcuts(shortcut, backgroundShortcut) {
+function initShortcuts(shortcut, backgroundShortcut, muteShortcut) {
   document.addEventListener('keydown', function(event) {
     // Shortcut: bind user's combination, if a button exists and the event is not in a textarea
     if (document.querySelector('.gE')) {
@@ -87,13 +110,18 @@ function initShortcuts(shortcut, backgroundShortcut) {
       ele.classList.add('github-link')
     })
 
-    if( processRightCombinationBasedOnShortcut(shortcut, event) && window.idled && getVisible(document.getElementsByClassName('github-link')) && notAnInput(event.target)) {
+    if ( processRightCombinationBasedOnShortcut(shortcut, event) && window.idled && getVisible(document.getElementsByClassName('github-link')) && notAnInput(event.target)) {
       triggerGitHubLink(false)
     }
 
     // Background Shortcut: bind user's combination, if a button exists and the event is not in a textarea
-    if( processRightCombinationBasedOnShortcut(backgroundShortcut, event) && window.idled && getVisible(document.getElementsByClassName('github-link')) && notAnInput(event.target)) {
+    if ( processRightCombinationBasedOnShortcut(backgroundShortcut, event) && window.idled && getVisible(document.getElementsByClassName('github-link')) && notAnInput(event.target)) {
       triggerGitHubLink(true)
+    }
+
+    // Mute Shortcut: bind user's combination, if a button exists and the event is not in a textarea
+    if (processRightCombinationBasedOnShortcut(muteShortcut, event) && window.idled && getVisible(document.getElementsByClassName('github-mute-button')) && notAnInput(event.target)) {
+      triggerGitHubLink(false, 'github-mute-button')
     }
   })
 }
@@ -109,12 +137,15 @@ function initListViewShortcut() {
 }
 
 // Trigger the appended link in mail view
-function triggerGitHubLink (backgroundOrNot) {
+function triggerGitHubLink (backgroundOrNot, className) {
+  if (typeof className === 'undefined') {
+    className = 'github-link'
+  }
   // avoid link being appended multiple times
   window.idled = false
   event = backgroundOrNot ? fakeBackgroundClick() : fakeEvent('click', false)
 
-  getVisible(document.getElementsByClassName('github-link')).dispatchEvent(event)
+  getVisible(document.getElementsByClassName(className)).dispatchEvent(event)
   setTimeout( function(){ window.idled = true }, 100)
 }
 
