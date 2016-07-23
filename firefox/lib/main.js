@@ -3,7 +3,7 @@ var self    = require("sdk/self")
 var simple  = require('sdk/simple-prefs')
 
 pageMod.PageMod({
-  include: "https://mail.google.com/*",
+  include: ["https://mail.google.com/*", "https://inbox.google.com/*"],
   contentStyleFile:  self.data.url("index.css"),
   contentScriptFile: [self.data.url("jquery.js"), self.data.url("index.js")],
   onAttach: function(worker) {

@@ -4,11 +4,16 @@ self.port.on("prefload", function(settings) {
   initShortcuts(settings['Shortcut'], settings['backgroundShortcut'])
 
   initListViewShortcut()
+  initForInbox()
 })
 
 // Ported from the Chrome extension
 // Avoid editing the following script to prevent divergence
 //
+
+function initForInbox() {
+  window.idled = true
+}
 
 function initOnHashChangeAction(domains) {
   var allDomains = '//github.com,'
@@ -74,6 +79,14 @@ function initOnHashChangeAction(domains) {
 function initShortcuts(shortcut, backgroundShortcut) {
   document.addEventListener('keydown', function(event) {
     // Shortcut: bind user's combination, if a button exists and the event is not in a textarea
+    if (document.querySelector('.gE')) {
+      document.querySelector('.gE').classList.remove('github-link')
+    }
+
+    Array.prototype.forEach.call(document.querySelectorAll('.scroll-list-item-open .gE, .scroll-list-item-highlighted .gE'), function (ele) {
+      ele.classList.add('github-link')
+    })
+
     if( processRightCombinationBasedOnShortcut(shortcut, event) && window.idled && getVisible(document.getElementsByClassName('github-link')) && notAnInput(event.target)) {
       triggerGitHubLink(false)
     }
