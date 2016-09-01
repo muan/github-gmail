@@ -163,7 +163,8 @@ function generateUrlAndGoTo (selected) {
 //
 
 function processRightCombinationBasedOnShortcut (shortcut, event) {
-  // Processing shortcut from preference
+  // Figure out the correct shortcut from preferences. `combination` will be
+  // something like ["shift", "71"].
   combination = shortcut.replace(/\s/g, '').split('+')
 
   keys = ['shift', 'alt', 'meta', 'ctrl']
@@ -173,10 +174,10 @@ function processRightCombinationBasedOnShortcut (shortcut, event) {
   keys.map(function(key) {
     index = combination.indexOf(key)
     if(index >= 0) {
-      if(key == "shift") trueOrFalse.push(event.shiftKey)
-      if(key == "alt")   trueOrFalse.push(event.altKey)
-      if(key == "meta")  trueOrFalse.push(event.metaKey)
-      if(key == "ctrl")  trueOrFalse.push(event.ctrlKey)
+      if(key === "shift") trueOrFalse.push(event.shiftKey)
+      if(key === "alt")   trueOrFalse.push(event.altKey)
+      if(key === "meta")  trueOrFalse.push(event.metaKey)
+      if(key === "ctrl")  trueOrFalse.push(event.ctrlKey)
 
       combination.splice(index, 1)
     }
@@ -186,7 +187,7 @@ function processRightCombinationBasedOnShortcut (shortcut, event) {
   if(combination.length) trueOrFalse.push(event.keyCode.toString() == combination[0])
 
   // Evaluate trueOrFalse by looking for the existence of False
-  return trueOrFalse = (trueOrFalse.indexOf(false) < 0)
+  return trueOrFalse.indexOf(false) < 0
 }
 
 // .click() doesn't usually work as expected
