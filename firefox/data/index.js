@@ -212,7 +212,7 @@ function getVisible (nodeList) {
   if(nodeList.length) {
     var node
     for(var i=0; i < nodeList.length; i++) {
-      if(typeof node === 'undefined' && (this.clientWidth > 0 || this.clientHeight > 0)) {
+      if(typeof node === 'undefined' && (nodeList[i].offsetHeight > 0 || nodeList[i].clientWidth > 0 || nodeList[i].clientHeight > 0)) {
         node = nodeList[i]
         break
       }
