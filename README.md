@@ -66,6 +66,16 @@ Customize the keyboard shortcut that triggers the `View on GitHub` button. Chang
 Chrome: `chrome/src/inject/inject.js`.<br>
 Firefox: `firefox/data/index.js`.
 
+## Building
+
+To build the Firefox version:
+
+```
+cd firefox
+npm install [-g] jpm
+jpm build
+```
+
 ## The End
 
 **Love :heart: it?** Tell this little bird over at [`@muanchiou`](https://twitter.com/muanchiou) and I'll be thrilled.
