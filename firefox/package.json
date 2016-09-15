@@ -2,9 +2,10 @@
   "name": "helpergithubgmail",
   "title": "Helper for GitHub notifications in Gmail",
   "fullName": "Helper for GitHub notifications in Gmail",
-  "id": "jid1-Zf83KbzewcxGfg",
+  "id": "helpergithubgmail@muan.co",
   "description": "Add links to GitHub threads and shortcuts to your Gmail interface.",
   "author": "Mu-An Chiou",
+  "main": "lib/main.js",
   "preferences": [{
     "name": "Domains",
     "title": "Domains",
@@ -25,5 +26,5 @@
     "hidden": true
   }],
   "license": "MIT",
-  "version": "0.1.2"
+  "version": "0.1.3"
 }
