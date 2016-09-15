@@ -16,6 +16,11 @@ The shortcut is `ctrl + return(enter)` (currently non-customizable). It will tri
 
 ![action button in list view](http://cl.ly/2d0N0N1U2h3P/Image%202016-02-18%20at%206.44.49%20PM.png)
 
+#### Mute Thread
+If you no longer want to receive notifications for a certain thread on GitHub, click the `Mute thread` button or using a shortcut `shift + h`. **Currently this feature is not functional but has been reported as an [issue](https://github.com/muan/github-gmail/issues/60).**
+
+![Mute thread button](https://s22.postimg.org/4cwbsva0h/687474703a2f2f636c2e6c792f32313272334d336b316330.gif)
+
 ## Installation
 
 #### The Easy Way
