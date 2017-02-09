@@ -16,7 +16,7 @@ function initOnHashChangeAction(domains) {
   if(domains) allDomains += domains
 
   // Take string -> make array -> make queries -> avoid nil -> join queries to string
-  var selectors = allDomains.replace(/\s/, '').split(',').map(function (name) {
+  var selectors = allDomains.replace(/\s/g, '').split(',').map(function (name) {
     if (name.length) return (".AO [href*='" + name + "']")
   }).filter(function (name) { return name }).join(", ")
 
@@ -63,8 +63,8 @@ function initOnHashChangeAction(domains) {
             })
           }
 
-          // Go to thread instead of .diff link (pull request notifications)
-          url = url.match(/\.diff/) ? url.slice(0, url.length-5) : url
+          // Go to thread instead of diffs or file views
+          url = url.match(/^(.+\/\d+)/)[1]
           var link = document.createElement('a')
           link.href = url
           link.className = 'github-link T-I J-J5-Ji lS T-I-ax7 ar7'
