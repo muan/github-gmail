@@ -71,7 +71,7 @@ function initOnHashChangeAction(domains) {
           }
 
           // Go to thread instead of diffs or file views
-          url = url.match(/^(.+\/\d+)/)[1]
+          if (url.match(/^(.+\/(issue|pull)\/\d+)/)) url = url.match(/^(.+\/(issue|pull)\/\d+)/)[1]
           var link = document.createElement('a')
           link.href = url
           link.className = 'github-link T-I J-J5-Ji lS T-I-ax7 ar7'
