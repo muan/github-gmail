@@ -23,11 +23,25 @@ request.onload = function() {
             }
             request.openerTabId = sender.tab.id
             request.index = position + 1
-            chrome.tabs.create(request)
-          })
+            chrome.tabs.create(request, function(tab) { listenAndCloseTab(tab, request.url, sender.tab.id) })
+          }
+        )
       } else {
         sendMessage(data)
       }
     }
   )
+}
+
+function listenAndCloseTab (tab, url, originalTabId) {
+  var listener = setInterval(function () {
+    chrome.tabs.get(tab.id, function (tab) {
+      if (tab.status === 'complete') {
+        chrome.tabs.remove(tab.id)
+        clearInterval(listener)
+        // Unsubscription finished
+        chrome.tabs.sendMessage(originalTabId, {muteURL: url})
+      }
+    })
+  }, 500)
 }
