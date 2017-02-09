@@ -65,7 +65,7 @@ function initOnHashChangeAction(domains) {
 
             muteLink.addEventListener('click', function (evt) {
               evt.preventDefault()
-              chrome.extension.sendMessage({url: muteURL, active: false})
+              chrome.extension.sendMessage({url: muteURL, active: false, mute: true})
               muteLink.innerHTML = '&ctdot;'
             })
           }

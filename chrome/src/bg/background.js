@@ -9,28 +9,31 @@ request.onload = function() {
     if(localStorage[key]) { data[key] = localStorage[key] }
   }
 
-  chrome.extension.onMessage.addListener(
-    function(request, sender, sendMessage) {
-      if(request.url) {
-        chrome.tabs.query(
-          {windowId: sender.tab.windowId},
-          function(tabs) {
-            var position = sender.tab.index;
-            for(var i = position; i < tabs.length; i++) {
-              if(tabs[i].openerTabId == sender.tab.id) {
-                position = i
-              }
+  chrome.extension.onMessage.addListener(function(req, sender, sendMessage) {
+    if(req.url) {
+      chrome.tabs.query(
+        {windowId: sender.tab.windowId},
+        function(tabs) {
+          var position = sender.tab.index;
+          for(var i = position; i < tabs.length; i++) {
+            if(tabs[i].openerTabId == sender.tab.id) {
+              position = i
             }
-            request.openerTabId = sender.tab.id
-            request.index = position + 1
-            chrome.tabs.create(request, function(tab) { listenAndCloseTab(tab, request.url, sender.tab.id) })
           }
-        )
-      } else {
-        sendMessage(data)
-      }
+          var mute = req.mute
+          delete req.mute
+
+          req.openerTabId = sender.tab.id
+          req.index = position + 1
+          chrome.tabs.create(req, function(tab) {
+            if (mute) listenAndCloseTab(tab, req.url, sender.tab.id)
+          })
+        }
+      )
+    } else {
+      sendMessage(data)
     }
-  )
+  })
 }
 
 function listenAndCloseTab (tab, url, originalTabId) {
