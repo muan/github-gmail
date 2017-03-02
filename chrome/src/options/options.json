@@ -2,21 +2,21 @@
   "Domains" : {
     "description": "Specify GitHub enterprise domain, or other domains you'd like to grab links for. There's no need to add github.com, protocol is also not required unless you'd like to be explicit.",
     "val": "",
-    "hint": "( comma separated if multiple )"
+    "hint": "Comma separated if multiple."
   },
   "Shortcut" : {
-    "description": "The shortcut that triggers button clicking on the mail view.",
+    "description": "Triggers view button on the mail view.",
     "val": "shift + 71",
-    "hint": " ( press shortcut in the input field )"
+    "hint": "Press shortcut in the input field."
   },
   "BackgroundShortcut" : {
-    "description": "The shortcut that triggers button clicking on the mail view, opens the link in the background.",
+    "description": "Triggers iew button on the mail view, opens the link in the background.",
     "val": "shift + 66",
-    "hint": " ( press shortcut in the input field )"
+    "hint": "Press shortcut in the input field."
   },
-  "RegExp" : {
-    "description": "Custom Regular Expression for matching labeled Organization name. Eg. <code>/^\\((.+)\\)/</code> matches <code><strong>muan</strong></code> in <code>(<strong>muan</strong>)\\github-gmail</code>, and will be use to build the url <code>https://github.com/<strong>muan</strong>/github-gmail/issues</code>.",
-    "val": "^\\((.+)\\)",
-    "hint": "( advanced function - <a target='_blank' href='https://github.com/muan/github-gmail#2-require-setup'>?</a> )"
+  "MuteShortcut" : {
+    "description": "Triggers mute button on the mail view.",
+    "val": "shift + 72",
+    "hint": "Press shortcut in the input field."
   }
 }

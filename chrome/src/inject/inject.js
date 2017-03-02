@@ -1,49 +1,89 @@
 // Retriving user options
-chrome.extension.sendMessage({}, function(settings) {
+chrome.extension.sendMessage({}, function (settings) {
   initOnHashChangeAction(settings['Domains'])
-  initShortcuts(settings['Shortcut'], settings['BackgroundShortcut'])
-  initListViewShortcut(settings['RegExp'])
+  initShortcuts(settings['Shortcut'], settings['BackgroundShortcut'], settings['MuteShortcut'])
+
+  initListViewShortcut()
+  initForInbox()
 })
 
+chrome.runtime.onMessage.addListener(function (req) {
+  var element = req['muteURL'] ? document.querySelector('[href="' + req['muteURL'] + '"]') : null
+
+  if (element) {
+    element.innerText = "Muted!"
+  }
+})
+
+function initForInbox() {
+  window.idled = true
+}
+
 function initOnHashChangeAction(domains) {
-  allDomains = "//github.com,"
+  var allDomains = '//github.com,'
   if(domains) allDomains += domains
 
   // Take string -> make array -> make queries -> avoid nil -> join queries to string
-  selectors = allDomains.replace(/\s/, '').split(',').map(function (name) {
+  var selectors = allDomains.replace(/\s/g, '').split(',').map(function (name) {
     if (name.length) return (".AO [href*='" + name + "']")
-  }).filter(function(name) { return name }).join(", ")
+  }).filter(function (name) { return name }).join(", ")
 
   intervals = []
 
   // Find GitHub link and append it to tool bar on hashchange
-  window.onhashchange = function() {
+  window.onhashchange = function () {
     fetchAndAppendGitHubLink()
   }
 
-  function fetchAndAppendGitHubLink() {
+  function fetchAndAppendGitHubLink () {
     // In case previous intervals got interrupted
     clearAllIntervals()
 
-    retryForActiveMailBody = setInterval(function() {
-      mail_body = $('.nH.hx').filter(function() { return this.clientHeight != 0 })[0]
+    var retryForActiveMailBody = setInterval(function () {
+      var mail_body = Array.prototype.filter.call(document.querySelectorAll('.nH.hx'), function () { return this.clientHeight != 0 })[0]
 
-      if( mail_body ) {
-
-        github_links = mail_body.querySelectorAll(selectors)
-        github_links = reject_unwanted_paths(github_links)
+      if (mail_body ) {
+        var github_links = reject_unwanted_paths(mail_body.querySelectorAll(selectors))
 
         // Avoid multple buttons
-        $('.github-link').remove()
+        Array.prototype.forEach.call(document.querySelectorAll('.github-link, .github-mute'), function (ele) {
+          ele.remove()
+        })
 
-        if( github_links.length ) {
+        if (github_links.length ) {
+          var url = github_links[github_links.length-1].href
+          var muteLink
 
-          url = github_links[github_links.length-1].href
-          // Go to thread instead of .diff link (pull request notifications)
-          url = url.match(/\.diff/) ? url.slice(0, url.length-5) : url
-          link = $("<a class='github-link T-I J-J5-Ji lS T-I-ax7 ar7' target='_blank' href='"+ url +"'>Visit Thread on GitHub</a>")
+          // skip notification unsubscribe links:
+          if (url.match('notifications/unsubscribe')) {
+            var muteURL = url
+            url = github_links[github_links.length-2].href
+            muteLink = document.createElement('a')
+            muteLink.className = 'github-mute T-I J-J5-Ji lS T-I-ax7 ar7'
+            muteLink.innerText = 'Mute thread'
+            muteLink.href = muteURL
 
-          $(".iH > div").append(link)
+            muteLink.addEventListener('click', function (evt) {
+              evt.preventDefault()
+              chrome.extension.sendMessage({url: muteURL, active: false, mute: true})
+              muteLink.innerHTML = '&ctdot;'
+            })
+          }
+
+          // Go to thread instead of diffs or file views
+          if (url.match(/^(.+\/(issue|pull)\/\d+)/)) url = url.match(/^(.+\/(issue|pull)\/\d+)/)[1]
+          var link = document.createElement('a')
+          link.href = url
+          link.className = 'github-link T-I J-J5-Ji lS T-I-ax7 ar7'
+          link.target = '_blank'
+          link.innerText = 'Visit Thread on GitHub'
+
+          document.querySelector('.iH > div').appendChild(link)
+
+          if (muteLink) {
+            document.querySelector('.iH > div').appendChild(muteLink)
+          }
+
           window.idled = true
 
           document.getElementsByClassName('github-link')[0].addEventListener("DOMNodeRemovedFromDocument", function (ev) {
@@ -52,7 +92,7 @@ function initOnHashChangeAction(domains) {
         }
 
         clearInterval(retryForActiveMailBody)
-      } else if ( $('.nH.hx').length == 0 ) {
+      } else if ( !document.querySelector('.nH.hx') ) {
         // Not in a mail view
         clearInterval(retryForActiveMailBody)
       }
@@ -62,26 +102,39 @@ function initOnHashChangeAction(domains) {
   }
 }
 
-function initShortcuts(shortcut, backgroundShortcut) {
-  $(document).on("keydown", function(event) {
+function initShortcuts(shortcut, backgroundShortcut, muteShortcut) {
+  document.addEventListener('keydown', function (event) {
     // Shortcut: bind user's combination, if a button exist and event not in a textarea
-    if( processRightCombinationBasedOnShortcut(shortcut, event) && window.idled && getVisible(document.getElementsByClassName('github-link')) && notAnInput(event.target)) {
+    if (document.querySelector('.gE')) {
+      document.querySelector('.gE').classList.remove('github-link')
+    }
+
+    Array.prototype.forEach.call(document.querySelectorAll('.scroll-list-item-open .gE, .scroll-list-item-highlighted .gE'), function (ele) {
+      ele.classList.add('github-link')
+    })
+
+    if (processRightCombinationBasedOnShortcut(shortcut, event) && window.idled && getVisible(document.getElementsByClassName('github-link')) && notAnInput(event.target)) {
       triggerGitHubLink(false)
     }
 
     // Bacground Shortcut: bind user's combination, if a button exist and event not in a textarea
-    if( processRightCombinationBasedOnShortcut(backgroundShortcut, event) && window.idled && getVisible(document.getElementsByClassName('github-link')) && notAnInput(event.target)) {
+    if (processRightCombinationBasedOnShortcut(backgroundShortcut, event) && window.idled && getVisible(document.getElementsByClassName('github-link')) && notAnInput(event.target)) {
       triggerGitHubLink(true)
+    }
+
+    // Mute Shortcut: bind user's combination, if a button exist and event not in a textarea
+    if (processRightCombinationBasedOnShortcut(muteShortcut, event) && window.idled && getVisible(document.getElementsByClassName('github-mute')) && notAnInput(event.target)) {
+      getVisible(document.getElementsByClassName('github-mute')).click()
     }
   })
 }
 
 function initListViewShortcut(regexp) {
-  $(document).on("keypress", function(event) {
+  document.addEventListener('keypress', function (event) {
     // Shortcut: bind ctrl + return
-    selected = getVisible(document.querySelectorAll('.zA[tabindex="0"]'))
-    if( event.ctrlKey && event.keyCode == 13 && selected ) {
-      generateUrlAndGoTo(selected, regexp)
+    var selected = getVisible(document.querySelectorAll('.zA[tabindex="0"]'))
+    if (event.ctrlKey && event.keyCode == 13 && selected ) {
+      generateUrlAndGoTo(selected)
     }
   })
 }
@@ -90,36 +143,18 @@ function initListViewShortcut(regexp) {
 function triggerGitHubLink (backgroundOrNot) {
   // avoid link being appended multiple times
   window.idled = false
-  event = backgroundOrNot ? fakeBackgroundClick() : fakeEvent('click', false)
+  var link = getVisible(document.getElementsByClassName('github-link'))
+  chrome.extension.sendMessage({url: link.href, active: !backgroundOrNot})
 
-  getVisible(document.getElementsByClassName('github-link')).dispatchEvent(event)
-  setTimeout( function(){ window.idled = true }, 100)
+  setTimeout( function (){ window.idled = true }, 100)
 }
 
 // Go to selected email GitHub thread
-function generateUrlAndGoTo (selected, regexp) {
-  gotoaction = selected.querySelectorAll('.aKS [role="button"]')[0]
+function generateUrlAndGoTo (selected) {
+  var gotoaction = selected.querySelectorAll('.aKS [role="button"]')[0]
 
   if(gotoaction) {
-    // if there's a gotoaction
     gotoaction.dispatchEvent(fakeEvent('mousedown', true))
-
-  } else if( (title = selected.innerText.match(/\[(.*)\]\s.*\s\(\#(\d*)\)/)) ) {
-    // If the title looks like a GitHub notification email.
-    // org name coms from a label
-    regexp = new RegExp(regexp)
-    label   = selected.querySelectorAll('.av')[0]
-
-    if(label) org = label.innerText.toLowerCase().match(regexp)
-
-    if(org) {
-      org = org[1]
-      repo = title[1]
-      issue_no = title[2]
-
-      url = "https://github.com/" + org + "/" + repo + "/issues/" + issue_no
-      linkWithUrl(url).dispatchEvent(fakeEvent('click', false))
-    }
   }
 }
 
@@ -135,13 +170,13 @@ function processRightCombinationBasedOnShortcut (shortcut, event) {
   trueOrFalse = []
 
   // If a key is in the combination, push the value to trueOrFalse array, and delete it from the combination
-  keys.map(function(key) {
+  keys.map(function (key) {
     index = combination.indexOf(key)
     if(index >= 0) {
       if(key == "shift") trueOrFalse.push(event.shiftKey)
       if(key == "alt")   trueOrFalse.push(event.altKey)
       if(key == "meta")  trueOrFalse.push(event.metaKey)
-      if(key == "crtl")  trueOrFalse.push(event.ctrlKey)
+      if(key == "ctrl")  trueOrFalse.push(event.ctrlKey)
 
       combination.splice(index, 1)
     }
@@ -160,11 +195,6 @@ function fakeEvent (event, bubbles) {
   return click
 }
 
-function fakeBackgroundClick () {
-  var click = new MouseEvent('click', {metaKey: true})
-  return click
-}
-
 function linkWithUrl (url) {
   var l = document.createElement('a')
   l.href = url
@@ -175,11 +205,12 @@ function linkWithUrl (url) {
 function getVisible (nodeList) {
   if(nodeList.length) {
     var node
-    $(nodeList).map(function() {
-      if(typeof node == 'undefined' && (this.clientWidth > 0 || this.clientHeight > 0)) {
-        node = this
+    for(var i=0; i < nodeList.length; i++) {
+      if(typeof node === 'undefined' && (nodeList[i].offsetHeight > 0 || nodeList[i].clientWidth > 0 || nodeList[i].clientHeight > 0)) {
+        node = nodeList[i]
+        break
       }
-    })
+    }
     return node
   }
 }
@@ -189,7 +220,7 @@ function notAnInput (element) {
 }
 
 function clearAllIntervals () {
-  intervals.map(function(num) {
+  intervals.map(function (num) {
     clearInterval(num)
     delete intervals[intervals.indexOf(num)]
   })
@@ -198,13 +229,12 @@ function clearAllIntervals () {
 // Reject unsubscribe, subscription and verification management paths
 // Make sure the keywords((un)subscribe) can still be repository names
 function reject_unwanted_paths (links) {
-  paths = ['\/\/[^\/]*\/mailers\/unsubscribe\?',
-           '\/\/[^\/]*\/.*\/.*\/unsubscribe_via_email',
-           '\/\/[^\/]*\/.*\/.*\/subscription$',
-           '\/\/[^\/]*\/.*\/.*\/emails\/.*\/confirm_verification\/.*'
-  ]
-  regexp = new RegExp(paths.join('|'))
-  return $(links).filter(function() {
-    if(!this.href.match(regexp)) return this
+  var paths = ['\/\/[^\/]*\/mailers\/unsubscribe\?',
+               '\/\/[^\/]*\/.*\/.*\/unsubscribe_via_email',
+               '\/\/[^\/]*\/.*\/.*\/subscription$',
+               '\/\/[^\/]*\/.*\/.*\/emails\/.*\/confirm_verification\/.*']
+  var regexp = new RegExp(paths.join('|'))
+  return Array.prototype.filter.call(links, function (link) {
+    if(!link.href.match(regexp)) return this
   })
 }

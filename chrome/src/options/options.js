@@ -13,15 +13,15 @@ function initOptions (defaultOptions) {
   optionsWrapper = document.getElementById('options')
 
   for (var key in options) {
-    html  = '<div class=\'option\'><label>' + key + ' ' + options[key].hint + '</label>'
-    html += '<p class=\'description\'>' + options[key].description + '</p>'
+    html  = '<div class=\'option\'><label>' + key + '</label>'
+    html += '<p class=\'description\'>' + options[key].description + '<br><span class=\'help\'>*' + options[key].hint + '</span></p>'
     html += '<input name=\'' + key + '\' value=\'' + options[key].val +'\' type=\'text\' /></div>'
     $(optionsWrapper).append(html)
   }
 
 }
 
-$(document).on('keypress', '[name=Shortcut], [name=BackgroundShortcut]', function(e) {
+$(document).on('keypress', '[name=Shortcut], [name=BackgroundShortcut], [name=MuteShortcut]', function(e) {
   if (e.keyCode == 13 && !e.shiftKey && !e.metaKey && !e.altKey && !e.ctrlKey ) return false
   code = ''
   keys = ['shift', 'alt', 'meta', 'ctrl']

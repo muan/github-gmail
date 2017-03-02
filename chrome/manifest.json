@@ -1,7 +1,7 @@
 {
-  "name": "GitHub Notification Helper for Gmail",
-  "short_name": "GitHub4Gmail",
-  "version": "0.6.0",
+  "name": "Helper for GitHub notifications in Gmail",
+  "short_name": "helpergithubgmail",
+  "version": "0.8.0",
   "manifest_version": 2,
   "description": "Add links to GitHub threads and shortcuts to your Gmail interface.",
   "homepage_url": "http://github.com/muan/github-gmail",
@@ -20,7 +20,8 @@
   "content_scripts": [
     {
       "matches": [
-        "https://mail.google.com/*"
+        "https://mail.google.com/*",
+        "https://inbox.google.com/*"
       ],
       "css": [
         "src/inject/inject.css"
@@ -28,10 +29,10 @@
     },
     {
       "matches": [
-        "https://mail.google.com/*"
+        "https://mail.google.com/*",
+        "https://inbox.google.com/*"
       ],
       "js": [
-        "js/jquery.js",
         "src/inject/inject.js"
       ]
     }
