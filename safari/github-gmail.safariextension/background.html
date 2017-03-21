@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" charset="utf-8">
+  safari.application.addEventListener('message', function(e) {
+    var names = ['Domains', 'Shortcut', 'BackgroundShortcut', 'RegExp'];
+    if (e.name === 'getSettings') {
+      var settings = {};
+      for (var i in names)
+        settings[names[i]] = safari.extension.settings[names[i]];
+      e.target.page.dispatchMessage('settingsAre', settings);
+    }
+  }, false);
+</script>
+</head>
+</html>

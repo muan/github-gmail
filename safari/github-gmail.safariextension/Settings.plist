@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>Key</key>
+		<string>Domains</string>
+		<key>Title</key>
+		<string>Domains ( comma separated if multiple )</string>
+		<key>Type</key>
+		<string>TextField</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<string>shift + 71</string>
+		<key>Key</key>
+		<string>Shortcut</string>
+		<key>Secure</key>
+		<false/>
+		<key>Title</key>
+		<string>Shortcut ( press shortcut in the input field )</string>
+		<key>Type</key>
+		<string>TextField</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<string>shift + 66</string>
+		<key>Key</key>
+		<string>BackgroundShortcut</string>
+		<key>Title</key>
+		<string>BackgroundShortcut ( press shortcut in the input field )</string>
+		<key>Type</key>
+		<string>TextField</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<string>^\((.+)\)</string>
+		<key>Key</key>
+		<string>RegExp</string>
+		<key>Title</key>
+		<string>RegExp ( advanced function )</string>
+		<key>Type</key>
+		<string>TextField</string>
+	</dict>
+</array>
+</plist>
