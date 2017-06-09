@@ -1,7 +1,9 @@
-.github-link {
+.github-link,
+.github-mute {
   text-decoration: none;
   cursor: pointer;
 }
-.github-link:hover {
+.github-link:hover,
+.github-mute:hover {
   border-color: rgba(0,0,0,0.2) !important;
 }

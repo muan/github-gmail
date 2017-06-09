@@ -7,6 +7,14 @@ chrome.extension.sendMessage({}, function (settings) {
   initForInbox()
 })
 
+chrome.runtime.onMessage.addListener(function (req) {
+  var element = req['muteURL'] ? document.querySelector('[href="' + req['muteURL'] + '"]') : null
+
+  if (element) {
+    element.innerText = "Muted!"
+  }
+})
+
 function initForInbox() {
   window.idled = true
 }
@@ -16,7 +24,7 @@ function initOnHashChangeAction(domains) {
   if(domains) allDomains += domains
 
   // Take string -> make array -> make queries -> avoid nil -> join queries to string
-  var selectors = allDomains.replace(/\s/, '').split(',').map(function (name) {
+  var selectors = allDomains.replace(/\s/g, '').split(',').map(function (name) {
     if (name.length) return (".AO [href*='" + name + "']")
   }).filter(function (name) { return name }).join(", ")
 
@@ -38,7 +46,7 @@ function initOnHashChangeAction(domains) {
         var github_links = reject_unwanted_paths(mail_body.querySelectorAll(selectors))
 
         // Avoid multple buttons
-        Array.prototype.forEach.call(document.querySelectorAll('.github-link, .github-mute-button'), function (ele) {
+        Array.prototype.forEach.call(document.querySelectorAll('.github-link, .github-mute'), function (ele) {
           ele.remove()
         })
 
@@ -50,21 +58,20 @@ function initOnHashChangeAction(domains) {
           if (url.match('notifications/unsubscribe')) {
             var muteURL = url
             url = github_links[github_links.length-2].href
-            muteLink = document.createElement('button')
-            muteLink.type = 'button'
-            muteLink.className = 'github-mute-button T-I J-J5-Ji lS T-I-ax7 ar7'
+            muteLink = document.createElement('a')
+            muteLink.className = 'github-mute T-I J-J5-Ji lS T-I-ax7 ar7'
             muteLink.innerText = 'Mute thread'
-            muteLink.addEventListener('click', function () {
+            muteLink.href = muteURL
+
+            muteLink.addEventListener('click', function (evt) {
+              evt.preventDefault()
+              chrome.extension.sendMessage({url: muteURL, active: false, mute: true})
               muteLink.innerHTML = '&ctdot;'
-              fetch(muteURL, {mode: 'no-cors'}).then(function () {
-                muteLink.innerText = 'Muted!'
-                muteLink.disabled = 'disabled'
-              })
             })
           }
 
-          // Go to thread instead of .diff link (pull request notifications)
-          url = url.match(/\.diff/) ? url.slice(0, url.length-5) : url
+          // Go to thread instead of diffs or file views
+          if (url.match(/^(.+\/(issue|pull)\/\d+)/)) url = url.match(/^(.+\/(issue|pull)\/\d+)/)[1]
           var link = document.createElement('a')
           link.href = url
           link.className = 'github-link T-I J-J5-Ji lS T-I-ax7 ar7'
@@ -116,8 +123,8 @@ function initShortcuts(shortcut, backgroundShortcut, muteShortcut) {
     }
 
     // Mute Shortcut: bind user's combination, if a button exist and event not in a textarea
-    if (processRightCombinationBasedOnShortcut(muteShortcut, event) && window.idled && getVisible(document.getElementsByClassName('github-mute-button')) && notAnInput(event.target)) {
-      getVisible(document.getElementsByClassName('github-mute-button')).click()
+    if (processRightCombinationBasedOnShortcut(muteShortcut, event) && window.idled && getVisible(document.getElementsByClassName('github-mute')) && notAnInput(event.target)) {
+      getVisible(document.getElementsByClassName('github-mute')).click()
     }
   })
 }
