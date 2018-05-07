@@ -76,7 +76,7 @@ function initOnHashChangeAction(domains) {
           link.href = url
           link.className = 'github-link T-I J-J5-Ji lS T-I-ax7 ar7'
           link.target = '_blank'
-          link.innerText = 'Visit Thread on GitHub'
+          link.innerText = 'View on GitHub'
 
           document.querySelector('.iH > div').appendChild(link)
 
