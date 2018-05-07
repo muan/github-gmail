@@ -1,7 +1,7 @@
 {
   "name": "Helper for GitHub notifications in Gmail",
   "short_name": "helpergithubgmail",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "manifest_version": 2,
   "description": "Add links to GitHub threads and shortcuts to your Gmail interface.",
   "homepage_url": "http://github.com/muan/github-gmail",
