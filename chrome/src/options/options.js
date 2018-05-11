@@ -1,60 +1,65 @@
-$.getJSON('options.json', function(data) {
+const save = document.getElementById('save')
+const form = document.getElementById('form')
+
+fetch('options.json').then(function(res) {
+  return res.json()
+}).then(function(data) {
   defaultOptions = data
   initOptions(defaultOptions)
 })
 
 function initOptions (defaultOptions) {
-  options = defaultOptions
+  var options = defaultOptions
 
   for (var key in defaultOptions) {
     if( localStorage[key] ) { options[key].val = localStorage[key] }
   }
 
-  optionsWrapper = document.getElementById('options')
+  var optionsWrapper = document.getElementById('options')
 
   for (var key in options) {
     html  = '<div class=\'option\'><label>' + key + '</label>'
     html += '<p class=\'description\'>' + options[key].description + '<br><span class=\'help\'>*' + options[key].hint + '</span></p>'
     html += '<input name=\'' + key + '\' value=\'' + options[key].val +'\' type=\'text\' /></div>'
-    $(optionsWrapper).append(html)
+    optionsWrapper.innerHTML += html
   }
 
+  for(const el of document.querySelectorAll('[name="Shortcut"], [name="BackgroundShortcut"], [name="MuteShortcut"]')) {
+    el.addEventListener('keypress', function(e) {
+      if (e.keyCode == 13 && !e.shiftKey && !e.metaKey && !e.altKey && !e.ctrlKey ) return false
+      code = ''
+      keys = ['shift', 'alt', 'meta', 'ctrl']
+      keys.map(function(key) {
+        if( eval('e.' + key + 'Key' ) ) { code += key + " + " }
+      })
+      code += e.keyCode
+      el.value = code
+      e.preventDefault()
+    })
+  }
 }
 
-$(document).on('keypress', '[name=Shortcut], [name=BackgroundShortcut], [name=MuteShortcut]', function(e) {
-  if (e.keyCode == 13 && !e.shiftKey && !e.metaKey && !e.altKey && !e.ctrlKey ) return false
-  code = ''
-  keys = ['shift', 'alt', 'meta', 'ctrl']
-  keys.map(function(key) {
-    if( eval('e.' + key + 'Key' ) ) { code += key + " + " }
-  })
-  code += e.keyCode
-  $(this).val(code)
-  e.preventDefault()
-})
 
-$(document).on('keypress', 'input[type]', function(e) {
-  if( e.keyCode == 13 ) {
-    $(this).blur()
-    $('#save').click()
-  }
-})
-
-$(document).on('click', '#save', function() {
+form.addEventListener('submit', function(e) {
   fields = []
-  $('input[name]').map(function(i, e) {
-    if( localStorage[e.name] != e.value ) fields.push(e)
-    localStorage[e.name] = e.value
-  })
+  for(const el of document.querySelectorAll('input[name]')) {
+    if( localStorage[el.name] !== el.value ) fields.push(el)
+    localStorage[el.name] = el.value
+  }
 
   // Update status to let user know options were saved.
   var save = document.getElementById('save')
-  $('.notice').show()
+  document.querySelector('.notice').hidden = false
   window.scrollTo(0, 10000)
   save.innerHTML = 'Updated!'
-  $(fields).closest('.option').removeClass('saved').addClass('saved')
-  setTimeout(function() {
-    $(fields).closest('.option').removeClass('saved')
-    save.innerHTML = 'Save'
-  }, 2050)
+  fields.forEach(function(el) {
+    var option = el.closest('.option')
+    option.classList.remove('saved')
+    option.classList.add('saved')
+    setTimeout(function() {
+      option.classList.remove('saved')
+      save.innerHTML = 'Save'
+    }, 2050)
+  })
+  e.preventDefault()
 })
