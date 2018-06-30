@@ -8,18 +8,18 @@ This is a **Chrome and Firefox Extension** that allows you to open threads in Gi
 
 Open your GitHub notifications using a shortcut (default to `shift + g`, or `shift + b` to open in the background in Chrome), or this button in mail view:
 
-![Mail view button](http://cl.ly/3v2M1s2w3O2i/Image%202016-02-18%20at%206.40.11%20PM.png)
+![Mail view button](https://user-images.githubusercontent.com/1153134/42123231-69153916-7c1c-11e8-8bf5-1d8fa2510b63.png)
 
 #### List View Shortcut
 
 The shortcut is `ctrl + return(enter)` (currently non-customizable). It will trigger one the action button when an email is selected using key navigation (when the blue bar appears):
 
-![action button in list view](http://cl.ly/2d0N0N1U2h3P/Image%202016-02-18%20at%206.44.49%20PM.png)
+![action button in list view](https://user-images.githubusercontent.com/1153134/42123260-fa87c648-7c1c-11e8-8d64-9ddd8899e594.png)
 
 #### Mute Thread
 If you no longer want to receive notifications for a certain thread on GitHub, click the `Mute thread` button or using a shortcut `shift + h`, it will open a background window to load the mute thread request, and close itself when done.
 
-![Mute thread button](https://s22.postimg.org/4cwbsva0h/687474703a2f2f636c2e6c792f32313272334d336b316330.gif)
+![Mute thread button](https://user-images.githubusercontent.com/1153134/42123234-7c6d271c-7c1c-11e8-9b13-3cd0cbea4eab.png)
 
 ## Installation
 
@@ -36,7 +36,7 @@ If you no longer want to receive notifications for a certain thread on GitHub, c
 
 As:
 
-![image](http://cl.ly/182s2G3P082a/Image%202016-02-18%20at%206.45.49%20PM.png)
+![load unpacked](https://user-images.githubusercontent.com/1153134/42123174-45ecb064-7c1b-11e8-81fd-9722627af801.png)
 
 ## Options and preferences
 
@@ -52,7 +52,7 @@ There are 3 preference settings:
 
 If you are using GitHub Enterprise and have a custom domain, you can set it in the extension options page.
 
-![domain option](http://cl.ly/0M1A2Z1o1m2O/Image%202016-02-18%20at%206.47.20%20PM.png)
+![domain option](https://user-images.githubusercontent.com/1153134/42123271-0dfcae8c-7c1d-11e8-87be-5c8b59fd8ecb.png  )
 
 #### Mail View Shortcut
 
@@ -60,11 +60,15 @@ Customize the keyboard shortcut that triggers the `View on GitHub` button. Chang
 
 ##### To open and focus the new window right away (`shift + g`):
 
-![image](http://cl.ly/1T1Z3Z2R2Z1j/Image%202016-02-18%20at%206.47.26%20PM.png)
+![image](https://user-images.githubusercontent.com/1153134/42123274-1ff72090-7c1d-11e8-8635-5df120d72c44.png)
 
 ##### To open a new window in the background (`shift + b`) – Chrome only:
 
-![image](http://cl.ly/2b16172q421S/Image%202016-02-18%20at%206.47.33%20PM.png)
+![image](https://user-images.githubusercontent.com/1153134/42123278-30653f8e-7c1d-11e8-871d-89829bd74390.png)
+
+##### To mute a thread in the background (`shift + h`) – Chrome only:
+
+![image](https://user-images.githubusercontent.com/1153134/42123283-445a047a-7c1d-11e8-8ca7-44912c4c85d4.png)
 
 ## Code
 
@@ -73,6 +77,6 @@ Firefox: `firefox/data/index.js`.
 
 ## The End
 
-**Love :heart: it?** Tell this little bird over at [`@muanchiou`](https://twitter.com/muanchiou) and I'll be thrilled.
+**Love :heart: it?** [Tell me](https://twitter.com/muanchiou)!
 
 **Found a :bug: bug?** [Open an issue](https://github.com/muan/github-gmail/issues/new) with some [emojis](http://emoji.muan.co). Issues without emojis are not valid. :trollface:
