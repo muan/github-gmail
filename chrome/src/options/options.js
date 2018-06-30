@@ -18,10 +18,11 @@ function initOptions (defaultOptions) {
   var optionsWrapper = document.getElementById('options')
 
   for (var key in options) {
-    html  = '<div class=\'option\'><label>' + key + '</label>'
-    html += '<p class=\'description\'>' + options[key].description + '<br><span class=\'help\'>*' + options[key].hint + '</span></p>'
-    html += '<input name=\'' + key + '\' value=\'' + options[key].val +'\' type=\'text\' /></div>'
-    optionsWrapper.innerHTML += html
+    optionsWrapper.innerHTML += `
+      <div class="option"><label>${key}</label>
+      <p class="description">${options[key].description}<br><span class="help">*${options[key].hint}</span></p>
+      <input name="${key}" value="${options[key].val}" type="text"></div>
+    `
   }
 
   for(const el of document.querySelectorAll('[name="Shortcut"], [name="BackgroundShortcut"], [name="MuteShortcut"]')) {
@@ -30,7 +31,7 @@ function initOptions (defaultOptions) {
       code = ''
       keys = ['shift', 'alt', 'meta', 'ctrl']
       keys.map(function(key) {
-        if( eval('e.' + key + 'Key' ) ) { code += key + " + " }
+        if( eval(`e.${key}Key` ) ) { code += `${key} + ` }
       })
       code += e.keyCode
       el.value = code
