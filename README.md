@@ -1,6 +1,6 @@
 # Helper for GitHub notifications in Gmail
 
-This is a **Chrome and Firefox Extension** that allows you to open threads in GitHub notification emails with a shortcut. :sparkles:
+This is a **Chrome extension**~~/Firefox addon~~[(out of date)](https://github.com/muan/github-gmail/issues/70) that allows you to open threads in GitHub notification emails with a shortcut. :sparkles:
 
 ## Features
 
@@ -23,9 +23,10 @@ If you no longer want to receive notifications for a certain thread on GitHub, c
 
 ## Installation
 
+### Chrome 
 #### The Easy Way
 
-[Install the extension via Chrome webstore](https://chrome.google.com/webstore/detail/github-notification-helpe/gmhijkhbpihfmkmhmcfebmlkaekgmaje) or [Install the addon via Firefox addons gallery](https://addons.mozilla.org/en-US/firefox/addon/github-for-gmail/)
+[Install the extension via Chrome webstore](https://chrome.google.com/webstore/detail/github-notification-helpe/gmhijkhbpihfmkmhmcfebmlkaekgmaje).
 
 #### The Mu-An-might-steal-all-my-data-so-I-want-to-manually-load-it Way (for Chrome)
 
@@ -37,6 +38,12 @@ If you no longer want to receive notifications for a certain thread on GitHub, c
 As:
 
 ![load unpacked](https://user-images.githubusercontent.com/1153134/42123174-45ecb064-7c1b-11e8-81fd-9722627af801.png)
+
+### Firefox
+
+~~[Install the addon via Firefox addons gallery](https://addons.mozilla.org/en-US/firefox/addon/github-for-gmail/)~~ 
+
+Firefox addon is out of date, see https://github.com/muan/github-gmail/issues/70.
 
 ## Options and preferences
 
