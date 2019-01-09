@@ -30,7 +30,7 @@ Mute thread in mail view. It will open a background window to load the mute thre
 
 ## Installation
 
-### The easy
+### The easy way
 
 Chrome: [Install the extension via Chrome webstore](https://chrome.google.com/webstore/detail/github-notification-helpe/gmhijkhbpihfmkmhmcfebmlkaekgmaje)<br>
 ~~Firefox: [Install the addon via Firefox addons gallery](https://addons.mozilla.org/en-US/firefox/addon/github-for-gmail/)~~<br>
