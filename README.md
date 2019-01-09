@@ -1,6 +1,6 @@
 # Helper for GitHub notifications in Gmail
 
-This is a Chrome, ~~Firefox addon~~[(broken)](https://github.com/muan/github-gmail/issues/70), Safari Extension that allows you to open threads in GitHub notification emails with a shortcut. :sparkles:
+A browser extension for Chrome, ~~Firefox~~[(broken)](https://github.com/muan/github-gmail/issues/70), and Safari that adds keyboard shortcuts to the Gmail interface for GitHub notification emails.
 
 ## Features
 
