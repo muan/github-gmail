@@ -1,6 +1,6 @@
 # Helper for GitHub notifications in Gmail
 
-This is a **Chrome, ~~Firefox,~~ Safari Extension** that allows you to open threads in GitHub notification emails with a shortcut. :sparkles:
+This is a Chrome, ~~Firefox addon~~[(broken)](https://github.com/muan/github-gmail/issues/70), Safari Extension that allows you to open threads in GitHub notification emails with a shortcut. :sparkles:
 
 ## Features
 
@@ -45,7 +45,7 @@ Safari: N/A I have not signed up for Apple Developer Program
 
 #### Firefox
 
-N/A
+https://github.com/muan/github-gmail/issues/70
 
 #### Safari
 
