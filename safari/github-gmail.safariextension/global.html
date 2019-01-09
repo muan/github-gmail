@@ -1,0 +1,24 @@
+<script type="text/javascript">
+  safari.application.activeBrowserWindow.addEventListener('message', function(event) {
+    if (event.name === 'get-settings') {
+      const {shortcut, backgroundShortcut, muteShortcut, domains} = safari.extension.settings
+      event.target.page.dispatchMessage('settings', {
+        shortcut, backgroundShortcut, muteShortcut, domains
+      })
+    } else if (event.name === 'new-tab') {
+      const newTab = safari.application.activeBrowserWindow.openTab(event.message.active ? 'foreground' : 'background')
+      const activePage = event.target.page
+
+      if (event.message.mute) {
+        newTab.addEventListener('navigate', function() {
+          newTab.close()
+          activePage.dispatchMessage('muted', {
+            url: event.message.url
+          })
+        })
+      }
+
+      newTab.url = event.message.url
+    }
+  })
+</script>

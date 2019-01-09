@@ -1,59 +1,64 @@
 # Helper for GitHub notifications in Gmail
 
-This is a **Chrome extension**~~/Firefox addon~~[(out of date)](https://github.com/muan/github-gmail/issues/70) that allows you to open threads in GitHub notification emails with a shortcut. :sparkles:
+This is a Chrome, ~~Firefox addon~~[(broken)](https://github.com/muan/github-gmail/issues/70), Safari Extension that allows you to open threads in GitHub notification emails with a shortcut. :sparkles:
 
 ## Features
 
-#### Mail View Shortcut
+### Mail View Shortcut
 
-Open your GitHub notifications using a shortcut (default to `shift + g`, or `shift + b` to open in the background in Chrome), or this button in mail view:
+Open your GitHub notifications in mail view:
+
+- Chrome/Firefox: <kbd>shift</kbd> + <kbd>g</kbd>, <kbd>shift</kbd> + <kbd>b</kbd> in the background
+- Safari: <kbd>ctrl</kbd> + <kbd>g</kbd>, <kbd>ctrl</kbd> + <kbd>b</kbd> in the background
 
 ![Mail view button](https://user-images.githubusercontent.com/1153134/42123231-69153916-7c1c-11e8-8bf5-1d8fa2510b63.png)
 
-#### List View Shortcut
+### List View Shortcut
 
-The shortcut is `ctrl + return(enter)` (currently non-customizable). It will trigger one the action button when an email is selected using key navigation (when the blue bar appears):
+<kbd>ctrl</kbd> + <kbd>return</kbd> to trigger one the action button when an email is selected using gmail key navigation (when the blue bar appears):
 
 ![action button in list view](https://user-images.githubusercontent.com/1153134/42123260-fa87c648-7c1c-11e8-8d64-9ddd8899e594.png)
 
-#### Mute Thread
-If you no longer want to receive notifications for a certain thread on GitHub, click the `Mute thread` button or using a shortcut `shift + h`, it will open a background window to load the mute thread request, and close itself when done.
+### Mute Thread
+
+Mute thread in mail view. It will open a background window to load the mute thread URL, and close itself when done. This only works if you have an active GitHub session.
+
+- Chrome/Firefox: <kbd>shift</kbd> + <kbd>h</kbd>
+- Safari: <kbd>ctrl</kbd> + <kbd>h</kbd>
 
 ![Mute thread button](https://user-images.githubusercontent.com/1153134/42123234-7c6d271c-7c1c-11e8-9b13-3cd0cbea4eab.png)
 
 ## Installation
 
-### Chrome 
-#### The Easy Way
+### The easy
 
-[Install the extension via Chrome webstore](https://chrome.google.com/webstore/detail/github-notification-helpe/gmhijkhbpihfmkmhmcfebmlkaekgmaje).
+Chrome: [Install the extension via Chrome webstore](https://chrome.google.com/webstore/detail/github-notification-helpe/gmhijkhbpihfmkmhmcfebmlkaekgmaje)<br>
+~~Firefox: [Install the addon via Firefox addons gallery](https://addons.mozilla.org/en-US/firefox/addon/github-for-gmail/)~~<br>
+Safari: N/A I have not signed up for Apple Developer Program
 
-#### The Mu-An-might-steal-all-my-data-so-I-want-to-manually-load-it Way (for Chrome)
+### The manual way
 
-1. Go to [Releases](https://github.com/muan/github-gmail/releases) and download the latest version.
-2. Unzip the folder wherever you'd like.
-3. Read Mu-An's code, making sure there is no data stealing.
-4. Go to Chrome extensions page (`chrome://extensions/`) and load the folder as an **Unpacked extension**.
+#### Chrome
 
-As:
+1. Go to [Releases](https://github.com/muan/github-gmail/releases) and download the latest version and unzip it.
+2. Go to Chrome extensions page (`chrome://extensions/`) and load the folder as an **Unpacked extension**.
 
-![load unpacked](https://user-images.githubusercontent.com/1153134/42123174-45ecb064-7c1b-11e8-81fd-9722627af801.png)
+#### Firefox
 
-### Firefox
+https://github.com/muan/github-gmail/issues/70
 
-~~[Install the addon via Firefox addons gallery](https://addons.mozilla.org/en-US/firefox/addon/github-for-gmail/)~~ 
+#### Safari
 
-Firefox addon is out of date, see https://github.com/muan/github-gmail/issues/70.
+1. Go to [Releases](https://github.com/muan/github-gmail/releases) and download the latest version and unzip it.
+2. `Preferences` > `Advanced` > `Show Develop menu in menu bar`
+3. `Develop` > `Show Extension Builder` > `+` > `Add Extension` > Choose the folder > `Run`
 
-## Options and preferences
-
-There are 3 preference settings:
+## Settings
 
 1. Custom domains
-2. Mail view shortcut
-3. List view regular expression
-
-**Attention** After updating a setting, please refresh both the extensions page and the Gmail page.
+2. Mail view: open thread shortcut
+3. Mail view: open thread in background shortcut
+4. Mail view: mute thread shortcut
 
 #### Custom Domains (for GitHub Enterprise)
 
@@ -77,13 +82,16 @@ Customize the keyboard shortcut that triggers the `View on GitHub` button. Chang
 
 ![image](https://user-images.githubusercontent.com/1153134/42123283-445a047a-7c1d-11e8-8ca7-44912c4c85d4.png)
 
-## Code
+## Development
+
+Load the extension manually and modify the code accordingly in these places:
 
 Chrome: `chrome/src/inject/inject.js`.<br>
-Firefox: `firefox/data/index.js`.
+Firefox: `firefox/data/index.js`.<br>
+Safari: `safari/github-gmail-safariextension/main.js`
 
 ## The End
 
-**Love :heart: it?** [Tell me](https://twitter.com/muanchiou)!
+**Love it?** [Tell me](https://twitter.com/muanchiou)!
 
-**Found a :bug: bug?** [Open an issue](https://github.com/muan/github-gmail/issues/new) with some [emojis](http://emoji.muan.co). Issues without emojis are not valid. :trollface:
+**Found a bug?** [Open an issue](https://github.com/muan/github-gmail/issues/new).
