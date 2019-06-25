@@ -35,25 +35,27 @@ function initOnHashChangeAction(domains) {
 
   // Find GitHub link and append it to tool bar on hashchange
   window.onhashchange = function () {
+    if (window.location.hash.match(/compose=new/)) return
     fetchAndAppendGitHubLink()
   }
 
   function fetchAndAppendGitHubLink () {
     // In case previous intervals got interrupted
     clearAllIntervals()
+    var counter = 0
 
     var retryForActiveMailBody = setInterval(function () {
+      counter++
       var mail_body = Array.prototype.filter.call(document.querySelectorAll('.nH.hx'), function () { return this.clientHeight != 0 })[0]
 
-      if (mail_body ) {
+      if (mail_body) {
         var github_links = reject_unwanted_paths(mail_body.querySelectorAll(selectors))
-
         // Avoid multple buttons
-        Array.prototype.forEach.call(document.querySelectorAll('.github-link, .github-mute'), function (ele) {
+        Array.prototype.forEach.call(document.querySelectorAll('.github-container, .github-link, .github-mute'), function (ele) {
           ele.remove()
         })
 
-        if (github_links.length ) {
+        if (github_links.length) {
           var url = github_links[github_links.length-1].href
           var muteLink
 
@@ -75,7 +77,7 @@ function initOnHashChangeAction(domains) {
 
           // Go to thread instead of diffs or file views
           if (url.match(/^(.+\/(issue|pull)\/\d+)/)) url = url.match(/^(.+\/(issue|pull)\/\d+)/)[1]
-          var link = document.createElement('a')
+          const link = document.createElement('a')
           link.href = url
           link.className = 'github-link T-I J-J5-Ji lS T-I-ax7 ar7'
           link.target = '_blank'
@@ -83,7 +85,7 @@ function initOnHashChangeAction(domains) {
 
           // Fix Safari margin
           const container = document.createElement('div')
-          container.className = 'G-Ni G-aE'
+          container.className = 'G-Ni G-aE github-container'
 
           container.appendChild(link)
           if (muteLink) container.appendChild(muteLink)
@@ -93,15 +95,16 @@ function initOnHashChangeAction(domains) {
 
           document.getElementsByClassName('github-link')[0].addEventListener("DOMNodeRemovedFromDocument", function (ev) {
             fetchAndAppendGitHubLink()
-          }, false)
+          })
+          clearAllIntervals()
+        } else if (counter === 5) {
+          clearAllIntervals()
         }
-
-        clearInterval(retryForActiveMailBody)
-      } else if ( !document.querySelector('.nH.hx') ) {
+      } else if (!document.querySelector('.nH.hx') ) {
         // Not in a mail view
-        clearInterval(retryForActiveMailBody)
+        clearAllIntervals()
       }
-    }, 100)
+    }, 200)
 
     intervals.push(retryForActiveMailBody)
   }
@@ -225,10 +228,10 @@ function notAnInput (element) {
 }
 
 function clearAllIntervals () {
-  intervals.map(function (num) {
-    clearInterval(num)
-    delete intervals[intervals.indexOf(num)]
-  })
+  for (const interval of intervals) {
+    clearInterval(interval)
+    delete intervals[intervals.indexOf(interval)]
+  }
 }
 
 // Reject unsubscribe, subscription and verification management paths
