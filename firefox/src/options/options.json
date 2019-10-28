@@ -1,0 +1,22 @@
+{
+  "Domains" : {
+    "description": "Specify GitHub enterprise domain, or other domains you'd like to grab links for. There's no need to add github.com, protocol is also not required unless you'd like to be explicit.",
+    "val": "",
+    "hint": "Comma separated if multiple."
+  },
+  "Shortcut" : {
+    "description": "Triggers view button on the mail view.",
+    "val": "shift + 71",
+    "hint": "Press shortcut in the input field. See <a href='https://support.google.com/mail/answer/6594'>Gmail shortcuts</a> to avoid collision."
+  },
+  "BackgroundShortcut" : {
+    "description": "Triggers iew button on the mail view, opens the link in the background.",
+    "val": "shift + 66",
+    "hint": "Press shortcut in the input field. See <a href='https://support.google.com/mail/answer/6594'>Gmail shortcuts</a> to avoid collision."
+  },
+  "MuteShortcut" : {
+    "description": "Triggers mute button on the mail view.",
+    "val": "shift + 72",
+    "hint": "Press shortcut in the input field. See <a href='https://support.google.com/mail/answer/6594'>Gmail shortcuts</a> to avoid collision."
+  }
+}

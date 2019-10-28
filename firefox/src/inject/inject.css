@@ -1,0 +1,10 @@
+.github-link,
+.github-mute {
+  text-decoration: none;
+  cursor: pointer;
+  margin-right: 12px !important;
+}
+.github-link:hover,
+.github-mute:hover {
+  border-color: rgba(0,0,0,0.2) !important;
+}

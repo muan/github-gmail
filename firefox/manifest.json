@@ -1,0 +1,54 @@
+{
+  "name": "Helper for GitHub notifications in Gmail",
+  "short_name": "helpergithubgmail",
+  "version": "0.8.2",
+  "manifest_version": 2,
+  "description": "Add links to GitHub threads and shortcuts to your Gmail interface.",
+  "homepage_url": "http://github.com/muan/github-gmail",
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+  "background": {
+    "page": "src/bg/background.html",
+    "persistent": true
+  },
+  "commands": {
+    "open-link": {
+      "suggested_key": {
+        "default": "Ctrl+G",
+        "mac": "MacCtrl+G"
+      },
+      "description": "Open link"
+    },
+    "open-link-in-background": {
+      "suggested_key": {
+        "default": "Ctrl+B",
+        "mac": "MacCtrl+B"
+      },
+      "description": "Open link in background"
+    },
+    "mute-link": {
+      "suggested_key": {
+        "default": "Ctrl+H",
+        "mac": "MacCtrl+H"
+      },
+      "description": "Mute thread"
+    }
+  },
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://mail.google.com/*"
+      ],
+      "css": [
+        "src/inject/inject.css"
+      ],
+      "js": [
+        "src/inject/inject.js"
+      ]
+    }
+  ]
+}
