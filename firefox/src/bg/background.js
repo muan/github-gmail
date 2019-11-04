@@ -1,10 +1,4 @@
 let data = {}
-fetch('../options/options.json').then(res => res.json()).then(json => {
-  for (var key in json) {
-    data[key] = json[key].val
-    if(localStorage[key]) { data[key] = localStorage[key] }
-  }
-})
 
 browser.runtime.onMessage.addListener(function(req, sender, sendMessage) {
   if(req.url) {
