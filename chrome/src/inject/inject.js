@@ -62,6 +62,7 @@ function initOnHashChangeAction(domains) {
             muteLink.className = 'github-mute T-I J-J5-Ji lS T-I-ax7 ar7'
             muteLink.innerText = 'Mute thread'
             muteLink.href = muteURL
+            muteLink.style = "pointer-events: auto"
 
             muteLink.addEventListener('click', function (evt) {
               evt.preventDefault()
@@ -77,6 +78,7 @@ function initOnHashChangeAction(domains) {
           link.className = 'github-link T-I J-J5-Ji lS T-I-ax7 ar7'
           link.target = '_blank'
           link.innerText = 'View on GitHub'
+          link.style = "pointer-events: auto"
 
           document.querySelector('.iH > div').appendChild(link)
 
