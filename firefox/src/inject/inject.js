@@ -56,7 +56,7 @@ function initOnHashChangeAction(domains) {
             var muteURL = url
             url = github_links[github_links.length-2].href
             muteLink = document.createElement('a')
-            muteLink.className = 'github-mute T-I J-J5-Ji lS T-I-ax7 ar7'
+            muteLink.className = 'github-mute T-I J-J5-Ji T-I-Js-Gs mA mw T-I-ax7 L3'
             muteLink.innerText = 'Mute thread'
             muteLink.href = muteURL
 
@@ -71,7 +71,7 @@ function initOnHashChangeAction(domains) {
           if (url.match(/^(.+\/(issue|pull)\/\d+)/)) url = url.match(/^(.+\/(issue|pull)\/\d+)/)[1]
           var link = document.createElement('a')
           link.href = url
-          link.className = 'github-link T-I J-J5-Ji lS T-I-ax7 ar7'
+          link.className = 'github-link T-I J-J5-Ji T-I-Js-Gs mA mw T-I-ax7 L3'
           link.target = '_blank'
           link.innerText = 'View on GitHub'
 
